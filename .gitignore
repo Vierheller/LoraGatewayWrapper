@@ -108,3 +108,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.idea/vcs.xml
+.idea/typescript-compiler.xml
+.idea/modules.xml
+.idea/dgs_lora_gateway_wrapper.iml
