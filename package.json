@@ -1,0 +1,19 @@
+{
+  "name": "dgs_lora_gateway_wrapper",
+  "version": "1.0.0",
+  "description": "A Wrapper for the PiInTheSky LORA Gateway",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vierheller/dgs_lora_gateway_wrapper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vierheller/dgs_lora_gateway_wrapper/issues"
+  },
+  "homepage": "https://github.com/Vierheller/dgs_lora_gateway_wrapper#readme"
+}
