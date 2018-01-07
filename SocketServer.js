@@ -40,6 +40,8 @@ var SocketServer = /** @class */ (function () {
     };
     SocketServer.prototype.sendImage = function (id, fileName, base64Photo, timestamp) {
     };
+    SocketServer.prototype.sendLog = function (line, date) {
+    };
     return SocketServer;
 }());
 exports.SocketServer = SocketServer;

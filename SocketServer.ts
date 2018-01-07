@@ -53,4 +53,8 @@ export class SocketServer{
     sendImage(id:number, fileName:string, base64Photo:string, timestamp:Date) {
 
     }
+
+    sendLog(line: string, date: Date) {
+
+    }
 }
