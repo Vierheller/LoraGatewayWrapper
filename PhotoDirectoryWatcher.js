@@ -14,31 +14,27 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
         this.watcher
             .on('add', function (path) {
             console.log('File', path, 'has been added');
-            if (that.onFileAddedListener)
-                that.onFileAddedListener(path);
+            if (this.isDownloadFinished(path)) {
+                if (this.onFileDownloadFinishedListener)
+                    this.onFileDownloadFinishedListener();
+                console.log(path, " finished download");
+            }
         })
             .on('change', function (path) {
             console.log('File', path, 'has been changed');
-            if (that.onFileChangedListener)
-                that.onFileChangedListener(path);
         })
             .on('unlink', function (path) {
             console.log('File', path, 'has been removed');
-            if (that.onFileRemovedListener)
-                that.onFileRemovedListener(path);
         })
             .on('error', function (error) {
             console.error('Error happened', error);
         });
     };
-    PhotoDirectoryWatcher.prototype.setOnFileAddedListener = function (listener) {
-        this.onFileAddedListener = listener;
+    PhotoDirectoryWatcher.prototype.isDownloadFinished = function (path) {
+        return true;
     };
-    PhotoDirectoryWatcher.prototype.setOnFileChangedListener = function (listener) {
-        this.onFileChangedListener = listener;
-    };
-    PhotoDirectoryWatcher.prototype.setOnFileRemovedListener = function (listener) {
-        this.onFileRemovedListener = listener;
+    PhotoDirectoryWatcher.prototype.setDownloadFinishedListener = function (listener) {
+        this.onFileDownloadFinishedListener = listener;
     };
     return PhotoDirectoryWatcher;
 }());
