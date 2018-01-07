@@ -25,12 +25,12 @@ export class SocketServer{
         this.socketLog = server(this.httpServer, {
             path: '/log',
             serveClient: false
-        })
+        });
 
         this.listen()
     }
 
-    listen(){
+    private listen(){
         this.httpServer.listen(this.port, () => {
             console.log('Running server on port %s', this.port);
         });
@@ -40,7 +40,7 @@ export class SocketServer{
         this.onConnect(this.socketLog, "log");
     }
 
-    onConnect(socket:SocketIO.Server, name:string){
+    private onConnect(socket: SocketIO.Server, name: string){
         socket.on('connect', (socket: any) => {
             console.log('Connected %s client on port %s.', name, this.port);
 
