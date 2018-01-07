@@ -38,6 +38,8 @@ var SocketServer = /** @class */ (function () {
             });
         });
     };
+    SocketServer.prototype.sendImage = function (id, fileName, base64Photo, timestamp) {
+    };
     return SocketServer;
 }());
 exports.SocketServer = SocketServer;
