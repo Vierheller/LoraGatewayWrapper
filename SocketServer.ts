@@ -51,10 +51,14 @@ export class SocketServer{
     }
 
     sendImage(id:number, fileName:string, base64Photo:string, timestamp:Date) {
-
+        //TODO implement stub
     }
 
     sendLog(line: string, date: Date) {
+        //TODO implement stub
+    }
 
+    sendTelemetry(data:string) {
+        //TODO implement stub
     }
 }

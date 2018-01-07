@@ -39,8 +39,13 @@ var SocketServer = /** @class */ (function () {
         });
     };
     SocketServer.prototype.sendImage = function (id, fileName, base64Photo, timestamp) {
+        //TODO implement stub
     };
     SocketServer.prototype.sendLog = function (line, date) {
+        //TODO implement stub
+    };
+    SocketServer.prototype.sendTelemetry = function (data) {
+        //TODO implement stub
     };
     return SocketServer;
 }());

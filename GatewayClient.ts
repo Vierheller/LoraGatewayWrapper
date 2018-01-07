@@ -5,27 +5,49 @@ export class GatewayClient{
     port:number;
     host:string;
 
+    connected:boolean = false;
+
+    dataListener:(data:Buffer)=>void;
+
     constructor(host:string, port:number){
         this.host = host;
         this.port = port;
     }
 
-    public connect(connectListener:()=>void, dataListener:(data:Buffer)=>void, errorListener:(err:Error)=>void){
-        this.clientSocket = createConnection(this.port, this.host, connectListener);
+    public connect(connectCallback:(err: Error)=>void){
+        this.clientSocket = createConnection(this.port, this.host, ()=>{
+            this.connected = true;
 
-        this.clientSocket.addListener("connect", connectListener);
+            this.setDataListener(this.dataListener);
 
-        this.clientSocket.addListener("data", dataListener);
+            this.clientSocket.addListener("close", (had_error:boolean)=>{
+                //Analyse
+            });
 
-        this.clientSocket.addListener("error", errorListener);
+            this.clientSocket.addListener("end", ()=>{
+                //cleanup
+            });
 
-        this.clientSocket.addListener("close", (had_error:boolean)=>{
-            //Analyse
+            connectCallback(null);
         });
 
-        this.clientSocket.addListener("end", ()=>{
-            //cleanup
-        })
+        this.clientSocket.addListener("error", (err:Error) => {
+            connectCallback(err);
+        });
+    }
+
+    setDataListener(listener:(data:Buffer)=>void){
+        this.dataListener = listener;
+
+        if(this.connected)
+            this.clientSocket.addListener("data", listener);
+    }
+
+    //TODO
+    static bufferToJSON(buffer:Buffer){
+        return {
+
+        }
     }
 
 }

@@ -25,6 +25,19 @@ export class GatewayWrapper{
     }
 
     private run(){
+        this.gatewaySocket.connect(err => {
+            if(err){
+                console.error(err);
+                return;
+            }
+            console.log("Connected to raw Socket")
+        });
+
+        this.gatewaySocket.setDataListener((buffer:Buffer) => {
+            const data = GatewayClient.bufferToJSON(buffer);
+            this.socketServer.sendTelemetry(data.toString())
+        });
+
         this.photoWatcher.setDownloadFinishedListener((path, fileName, photoTimestamp)=>{
             const base64Image = Base64Encoder.encode(path);
             //TODO update args

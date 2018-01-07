@@ -22,6 +22,17 @@ var GatewayWrapper = /** @class */ (function () {
     };
     GatewayWrapper.prototype.run = function () {
         var _this = this;
+        this.gatewaySocket.connect(function (err) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log("Connected to raw Socket");
+        });
+        this.gatewaySocket.setDataListener(function (buffer) {
+            var data = GatewayClient_1.GatewayClient.bufferToJSON(buffer);
+            _this.socketServer.sendTelemetry(data.toString());
+        });
         this.photoWatcher.setDownloadFinishedListener(function (path, fileName, photoTimestamp) {
             var base64Image = Base64Encoder_1.Base64Encoder.encode(path);
             //TODO update args
