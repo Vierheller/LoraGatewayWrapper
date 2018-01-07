@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Vierheller/dgs_lora_gateway_wrapper/issues"
   },
-  "homepage": "https://github.com/Vierheller/dgs_lora_gateway_wrapper#readme"
+  "homepage": "https://github.com/Vierheller/dgs_lora_gateway_wrapper#readme",
+  "devDependencies": {
+    "@types/node": "^8.5.7"
+  }
 }
