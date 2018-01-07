@@ -1,1 +1,3 @@
-console.log("Test")
+import {GatewayWrapper} from "./GatewayWrapper";
+
+GatewayWrapper.main();

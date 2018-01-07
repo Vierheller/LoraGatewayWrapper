@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/Vierheller/dgs_lora_gateway_wrapper#readme",
   "devDependencies": {
-    "@types/node": "^8.5.7"
+    "@types/node": "^8.5.7",
+    "@types/socket.io": "^1.4.31"
+  },
+  "dependencies": {
+    "socket.io": "^2.0.4"
   }
 }
