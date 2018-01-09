@@ -3,9 +3,7 @@ import server = require("socket.io");
 
 export class SocketServer{
     httpServer:http.Server;
-    socketTelemetry:SocketIO.Server;
-    socketPhoto:SocketIO.Server;
-    socketLog:SocketIO.Server;
+    socket:SocketIO.Server;
 
     port:number;
 
@@ -14,16 +12,8 @@ export class SocketServer{
 
         this.httpServer = http.createServer();
 
-        this.socketTelemetry = server(this.httpServer, {
-            path: '/telemetry',
-            serveClient: false
-        });
-        this.socketPhoto = server(this.httpServer, {
-            path: '/photo',
-            serveClient: false
-        });
-        this.socketLog = server(this.httpServer, {
-            path: '/log',
+        this.socket = server(this.httpServer, {
+            path: '/',
             serveClient: false
         });
 
@@ -35,9 +25,7 @@ export class SocketServer{
             console.log('Running server on port %s', this.port);
         });
 
-        this.onConnect(this.socketTelemetry, "telemetrie");
-        this.onConnect(this.socketPhoto, "photo");
-        this.onConnect(this.socketLog, "log");
+        this.onConnect(this.socket, "telemetrie");
     }
 
     private onConnect(socket: SocketIO.Server, name: string){
@@ -50,15 +38,47 @@ export class SocketServer{
         });
     }
 
+    sendOverSocket(json){
+        this.socket.send(json)
+    }
+
+    /**
+     *
+     * @param {number} id
+     * @param {string} fileName
+     * @param {string} base64Photo
+     * @param {Date} timestamp
+     */
     sendImage(id:number, fileName:string, base64Photo:string, timestamp:Date) {
         //TODO implement stub
+        this.sendOverSocket({
+            id: id,
+            filename:fileName,
+            photo_base64:base64Photo,
+            timestamp:timestamp,
+            type:"photo"
+        })
     }
 
+    /**
+     *
+     * @param {string} line
+     * @param {Date} date
+     */
     sendLog(line: string, date: Date) {
-        //TODO implement stub
+        this.sendOverSocket({
+            line:line,
+            timestamp:date
+        })
     }
 
+    /**
+     *
+     * @param {string} data
+     */
     sendTelemetry(data:string) {
-        //TODO implement stub
+        this.sendOverSocket({
+            data:data
+        })
     }
 }
