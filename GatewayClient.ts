@@ -1,6 +1,9 @@
 import {createConnection, Socket} from "net";
+import {LogHandler} from "./LogHandler";
 
 export class GatewayClient{
+    private log : LogHandler = LogHandler.getInstance()
+
     clientSocket: Socket;
     port:number;
     host:string;
@@ -22,10 +25,12 @@ export class GatewayClient{
 
             this.clientSocket.addListener("close", (had_error:boolean)=>{
                 //Analyse
+                this.log.log("Connection was closed with " + had_error?"an":"no" + "errors")
             });
 
             this.clientSocket.addListener("end", ()=>{
                 //cleanup
+                this.log.log("Connection ended!")
             });
 
             connectCallback(null);

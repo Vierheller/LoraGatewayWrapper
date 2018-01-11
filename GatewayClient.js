@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var net_1 = require("net");
+var LogHandler_1 = require("./LogHandler");
 var GatewayClient = /** @class */ (function () {
     function GatewayClient(host, port) {
+        this.log = LogHandler_1.LogHandler.getInstance();
         this.connected = false;
         this.host = host;
         this.port = port;
@@ -14,9 +16,11 @@ var GatewayClient = /** @class */ (function () {
             _this.setDataListener(_this.dataListener);
             _this.clientSocket.addListener("close", function (had_error) {
                 //Analyse
+                _this.log.log("Connection was closed with " + had_error ? "an" : "no" + "errors");
             });
             _this.clientSocket.addListener("end", function () {
                 //cleanup
+                _this.log.log("Connection ended!");
             });
             connectCallback(null);
         });
