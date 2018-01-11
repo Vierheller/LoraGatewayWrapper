@@ -17,6 +17,10 @@ export class GatewayClient{
         this.port = port;
     }
 
+    /**
+     * Method to connect to a linux socket and bind listeners to it
+     * @param {(err: Error) => void} connectCallback
+     */
     public connect(connectCallback:(err: Error)=>void){
         this.clientSocket = createConnection(this.port, this.host, ()=>{
             this.connected = true;
@@ -29,7 +33,7 @@ export class GatewayClient{
 
             this.clientSocket.addListener("close", (had_error:boolean)=>{
                 //Analyse
-                this.log.log("Connection was closed with " + had_error?"an":"no" + "errors")
+                this.log.log("Connection was closed with " + had_error? "an" : "no" + "errors")
             });
 
             this.clientSocket.addListener("end", ()=>{
@@ -40,11 +44,13 @@ export class GatewayClient{
             connectCallback(null);
         });
 
+        //Outside connect, since connect could throw an error
         this.clientSocket.addListener("error", (err:Error) => {
             connectCallback(err);
         });
     }
 
+    //Set internal data listener for event chain
     setDataListener(listener:(data:Buffer)=>void){
         this.dataListener = listener;
     }

@@ -9,6 +9,10 @@ var GatewayClient = /** @class */ (function () {
         this.host = host;
         this.port = port;
     }
+    /**
+     * Method to connect to a linux socket and bind listeners to it
+     * @param {(err: Error) => void} connectCallback
+     */
     GatewayClient.prototype.connect = function (connectCallback) {
         var _this = this;
         this.clientSocket = net_1.createConnection(this.port, this.host, function () {
@@ -28,10 +32,12 @@ var GatewayClient = /** @class */ (function () {
             });
             connectCallback(null);
         });
+        //Outside connect, since connect could throw an error
         this.clientSocket.addListener("error", function (err) {
             connectCallback(err);
         });
     };
+    //Set internal data listener for event chain
     GatewayClient.prototype.setDataListener = function (listener) {
         this.dataListener = listener;
     };
