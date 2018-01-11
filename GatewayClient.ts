@@ -21,7 +21,11 @@ export class GatewayClient{
         this.clientSocket = createConnection(this.port, this.host, ()=>{
             this.connected = true;
 
-            this.setDataListener(this.dataListener);
+            this.setDataListener(data => {
+                this.log.log("new Data: " + data);
+                if(this.dataListener)
+                    this.dataListener(data)
+            });
 
             this.clientSocket.addListener("close", (had_error:boolean)=>{
                 //Analyse
@@ -43,9 +47,6 @@ export class GatewayClient{
 
     setDataListener(listener:(data:Buffer)=>void){
         this.dataListener = listener;
-
-        if(this.connected)
-            this.clientSocket.addListener("data", listener);
     }
 
     //TODO

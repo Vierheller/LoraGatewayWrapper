@@ -13,7 +13,11 @@ var GatewayClient = /** @class */ (function () {
         var _this = this;
         this.clientSocket = net_1.createConnection(this.port, this.host, function () {
             _this.connected = true;
-            _this.setDataListener(_this.dataListener);
+            _this.setDataListener(function (data) {
+                _this.log.log("new Data: " + data);
+                if (_this.dataListener)
+                    _this.dataListener(data);
+            });
             _this.clientSocket.addListener("close", function (had_error) {
                 //Analyse
                 _this.log.log("Connection was closed with " + had_error ? "an" : "no" + "errors");
@@ -30,8 +34,6 @@ var GatewayClient = /** @class */ (function () {
     };
     GatewayClient.prototype.setDataListener = function (listener) {
         this.dataListener = listener;
-        if (this.connected)
-            this.clientSocket.addListener("data", listener);
     };
     //TODO
     GatewayClient.bufferToJSON = function (buffer) {
