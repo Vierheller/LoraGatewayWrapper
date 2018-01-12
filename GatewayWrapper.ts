@@ -42,7 +42,7 @@ export class GatewayWrapper{
 
         this.photoWatcher.setDownloadFinishedListener((path, fileName, photoTimestamp)=>{
             const base64Image = Base64Encoder.encode(path);
-            const image = new Image(fileName, base64Image)
+            const image = new Image(fileName, base64Image);
             //TODO update args
             this.socketServer.sendImage(image)
         });
