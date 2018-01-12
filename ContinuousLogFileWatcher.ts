@@ -12,13 +12,13 @@ export class ContinuousLogFileWatcher{
     }
 
     public watch(){
-        this.tailWatcher = new Tail(this.path)
-        this.tailWatcher .on('line', (line) => {
+        this.tailWatcher = new Tail(this.path);
+        this.tailWatcher.on('line', (line) => {
             if(this.listener)
                 this.listener(line)
         });
 
-        this.tailWatcher .on('close', () => {
+        this.tailWatcher.on('close', () => {
             console.log('watching stopped');
         });
 
