@@ -19,6 +19,7 @@ var GatewayClient = /** @class */ (function () {
             _this.connected = true;
             _this.setDataListener(function (data) {
                 _this.log.log("new Data: " + data);
+                var jsonData = GatewayClient.bufferToJSON(data);
                 if (_this.dataListener)
                     _this.dataListener(data);
             });
@@ -41,9 +42,10 @@ var GatewayClient = /** @class */ (function () {
     GatewayClient.prototype.setDataListener = function (listener) {
         this.dataListener = listener;
     };
-    //TODO
+    //TODO SAFE??? -> No typing
     GatewayClient.bufferToJSON = function (buffer) {
-        return {};
+        var data = buffer.toString('utf8');
+        return JSON.parse(data);
     };
     return GatewayClient;
 }());

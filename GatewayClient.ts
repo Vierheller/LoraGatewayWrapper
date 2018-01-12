@@ -25,8 +25,9 @@ export class GatewayClient{
         this.clientSocket = createConnection(this.port, this.host, ()=>{
             this.connected = true;
 
-            this.setDataListener(data => {
+            this.setDataListener((data:Buffer) => {
                 this.log.log("new Data: " + data);
+                const jsonData = GatewayClient.bufferToJSON(data);
                 if(this.dataListener)
                     this.dataListener(data)
             });
@@ -55,11 +56,10 @@ export class GatewayClient{
         this.dataListener = listener;
     }
 
-    //TODO
+    //TODO SAFE??? -> No typing
     static bufferToJSON(buffer:Buffer){
-        return {
-
-        }
+        const data = buffer.toString('utf8');
+        return JSON.parse(data)
     }
 
 }
