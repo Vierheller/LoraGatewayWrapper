@@ -1,0 +1,9 @@
+{
+  "gateway_client_host":"localhost",
+  "gateway_client_port":6004,
+
+  "gateway_server_port":3000,
+
+  "photo_directory_path":"/",
+  "log_file_path":"/"
+}

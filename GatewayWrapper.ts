@@ -6,8 +6,12 @@ import {ContinuousLogFileWatcher} from "./ContinuousLogFileWatcher";
 import {Telemetry} from "./Telemetrie";
 import {Image} from "./Image";
 import {Log} from "./Log";
+import {ConfigHolder} from "./config/ConfigHolder";
+import {Config} from "./config/Config";
 
 export class GatewayWrapper{
+    private static config: Config = ConfigHolder.config;
+
     gatewaySocket : GatewayClient;
     socketServer: SocketServer;
     photoWatcher:PhotoDirectoryWatcher;
@@ -21,10 +25,10 @@ export class GatewayWrapper{
 
     //TODO update paths, hosts, urls
     private init(){
-        this.gatewaySocket = new GatewayClient("localhost", 6004);
-        this.socketServer = new SocketServer(3000);
-        this.photoWatcher = new PhotoDirectoryWatcher("C:\\Users\\Vierheller\\Pictures\\lora");
-        this.logWatcher = new ContinuousLogFileWatcher("PathToLog")
+        this.gatewaySocket = new GatewayClient(GatewayWrapper.config.gateway_client_host, GatewayWrapper.config.gateway_client_port);
+        this.socketServer = new SocketServer(GatewayWrapper.config.gateway_server_port);
+        this.photoWatcher = new PhotoDirectoryWatcher(GatewayWrapper.config.photo_directory_path);
+        this.logWatcher = new ContinuousLogFileWatcher(GatewayWrapper.config.log_file_path)
     }
 
     private run(){
