@@ -12,6 +12,7 @@
         "sentence":"$$DHBW,144,00:00:00,0.00000,0.00000,00000,0,0,0,21.5,0.0,11.199,21.6,1013,0.0,20.4*035F"}
 */
 export class Telemetry{
+    //Incoming data
     class:string;
     index:number;
     channel:number;
@@ -23,6 +24,10 @@ export class Telemetry{
     rate:number;
     sentence:string;
     json:JSON;
+
+    //additional data
+    timestamp:Date
+
 
     public constructor(data:JSON){
         this.class = data["class"];
@@ -36,5 +41,13 @@ export class Telemetry{
         this.rate = data["rate"];
         this.sentence = data["sentence"];
         this.json = data
+
+        this.timestamp = new Date()
+    }
+
+    public getJSON():JSON{
+        const json = this.json;
+        json["timestamp"] = this.timestamp;
+        return json
     }
 }

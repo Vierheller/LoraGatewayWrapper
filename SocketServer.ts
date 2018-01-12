@@ -1,5 +1,8 @@
 import * as http from "http" ;
 import server = require("socket.io");
+import {Telemetry} from "./Telemetrie";
+import {Image} from "./Image";
+import {Log} from "./Log";
 
 export class SocketServer{
     httpServer:http.Server;
@@ -25,12 +28,12 @@ export class SocketServer{
             console.log('Running server on port %s', this.port);
         });
 
-        this.onConnect(this.socket, "telemetrie");
+        this.onConnect(this.socket);
     }
 
-    private onConnect(socket: SocketIO.Server, name: string){
+    private onConnect(socket: SocketIO.Server){
         socket.on('connect', (socket: any) => {
-            console.log('Connected %s client on port %s.', name, this.port);
+            console.log('Connected on port %s.', this.port);
 
             socket.on('disconnect', () => {
                 console.log('Client disconnected');
@@ -38,47 +41,20 @@ export class SocketServer{
         });
     }
 
-    sendOverSocket(json){
-        this.socket.send(json)
+    sendOverSocket(json:JSON){
+        this.socket.send(JSON.stringify(json))
     }
 
-    /**
-     *
-     * @param {number} id
-     * @param {string} fileName
-     * @param {string} base64Photo
-     * @param {Date} timestamp
-     */
-    sendImage(id:number, fileName:string, base64Photo:string, timestamp:Date) {
-        //TODO implement stub
-        this.sendOverSocket({
-            id: id,
-            filename:fileName,
-            photo_base64:base64Photo,
-            timestamp:timestamp,
-            type:"photo"
-        })
+
+    sendImage(image:Image) {
+        this.sendOverSocket(image.toJSON());
     }
 
-    /**
-     *
-     * @param {string} line
-     * @param {Date} date
-     */
-    sendLog(line: string, date: Date) {
-        this.sendOverSocket({
-            line:line,
-            timestamp:date
-        })
+    sendLog(log:Log) {
+        this.sendOverSocket(log.toJSON())
     }
 
-    /**
-     *
-     * @param {string} data
-     */
-    sendTelemetry(data:string) {
-        this.sendOverSocket({
-            data:data
-        })
+    sendTelemetry(data:Telemetry) {
+        this.sendOverSocket(data.getJSON())
     }
 }

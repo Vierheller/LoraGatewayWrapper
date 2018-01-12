@@ -3,12 +3,15 @@ import {SocketServer} from "./SocketServer";
 import {PhotoDirectoryWatcher} from "./PhotoDirectoryWatcher";
 import {Base64Encoder} from "./Base64Encoder";
 import {ContinuousLogFileWatcher} from "./ContinuousLogFileWatcher";
+import {Telemetry} from "./Telemetrie";
+import {Image} from "./Image";
+import {Log} from "./Log";
 
 export class GatewayWrapper{
     gatewaySocket : GatewayClient;
     socketServer: SocketServer;
     photoWatcher:PhotoDirectoryWatcher;
-    logWatcher:ContinuousLogFileWatcher
+    logWatcher:ContinuousLogFileWatcher;
 
     public static main(){
         const myWrapper = new GatewayWrapper();
@@ -33,19 +36,20 @@ export class GatewayWrapper{
             console.log("Connected to raw Socket")
         });
 
-        this.gatewaySocket.setDataListener((buffer:Buffer) => {
-            const data = GatewayClient.bufferToJSON(buffer);
-            this.socketServer.sendTelemetry(data.toString())
+        this.gatewaySocket.setDataListener((data:Telemetry) => {
+            this.socketServer.sendTelemetry(data)
         });
 
         this.photoWatcher.setDownloadFinishedListener((path, fileName, photoTimestamp)=>{
             const base64Image = Base64Encoder.encode(path);
+            const image = new Image(fileName, base64Image)
             //TODO update args
-            this.socketServer.sendImage(0, fileName, base64Image, photoTimestamp)
+            this.socketServer.sendImage(image)
         });
 
         this.logWatcher.setOnNewLineListener((line)=>{
-            this.socketServer.sendLog(line, new Date())
+            const log = new Log(line);
+            this.socketServer.sendLog(log)
         });
         this.logWatcher.watch();
     }

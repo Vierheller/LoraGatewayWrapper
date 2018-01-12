@@ -26,7 +26,13 @@ var Telemetry = /** @class */ (function () {
         this.rate = data["rate"];
         this.sentence = data["sentence"];
         this.json = data;
+        this.timestamp = new Date();
     }
+    Telemetry.prototype.getJSON = function () {
+        var json = this.json;
+        json["timestamp"] = this.timestamp;
+        return json;
+    };
     return Telemetry;
 }());
 exports.Telemetry = Telemetry;

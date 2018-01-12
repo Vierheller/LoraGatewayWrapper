@@ -17,56 +17,28 @@ var SocketServer = /** @class */ (function () {
         this.httpServer.listen(this.port, function () {
             console.log('Running server on port %s', _this.port);
         });
-        this.onConnect(this.socket, "telemetrie");
+        this.onConnect(this.socket);
     };
-    SocketServer.prototype.onConnect = function (socket, name) {
+    SocketServer.prototype.onConnect = function (socket) {
         var _this = this;
         socket.on('connect', function (socket) {
-            console.log('Connected %s client on port %s.', name, _this.port);
+            console.log('Connected on port %s.', _this.port);
             socket.on('disconnect', function () {
                 console.log('Client disconnected');
             });
         });
     };
     SocketServer.prototype.sendOverSocket = function (json) {
-        this.socket.send(json);
+        this.socket.send(JSON.stringify(json));
     };
-    /**
-     *
-     * @param {number} id
-     * @param {string} fileName
-     * @param {string} base64Photo
-     * @param {Date} timestamp
-     */
-    SocketServer.prototype.sendImage = function (id, fileName, base64Photo, timestamp) {
-        //TODO implement stub
-        this.sendOverSocket({
-            id: id,
-            filename: fileName,
-            photo_base64: base64Photo,
-            timestamp: timestamp,
-            type: "photo"
-        });
+    SocketServer.prototype.sendImage = function (image) {
+        this.sendOverSocket(image.toJSON());
     };
-    /**
-     *
-     * @param {string} line
-     * @param {Date} date
-     */
-    SocketServer.prototype.sendLog = function (line, date) {
-        this.sendOverSocket({
-            line: line,
-            timestamp: date
-        });
+    SocketServer.prototype.sendLog = function (log) {
+        this.sendOverSocket(log.toJSON());
     };
-    /**
-     *
-     * @param {string} data
-     */
     SocketServer.prototype.sendTelemetry = function (data) {
-        this.sendOverSocket({
-            data: data
-        });
+        this.sendOverSocket(data.getJSON());
     };
     return SocketServer;
 }());

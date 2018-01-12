@@ -5,6 +5,8 @@ var SocketServer_1 = require("./SocketServer");
 var PhotoDirectoryWatcher_1 = require("./PhotoDirectoryWatcher");
 var Base64Encoder_1 = require("./Base64Encoder");
 var ContinuousLogFileWatcher_1 = require("./ContinuousLogFileWatcher");
+var Image_1 = require("./Image");
+var Log_1 = require("./Log");
 var GatewayWrapper = /** @class */ (function () {
     function GatewayWrapper() {
     }
@@ -29,17 +31,18 @@ var GatewayWrapper = /** @class */ (function () {
             }
             console.log("Connected to raw Socket");
         });
-        this.gatewaySocket.setDataListener(function (buffer) {
-            var data = GatewayClient_1.GatewayClient.bufferToJSON(buffer);
-            _this.socketServer.sendTelemetry(data.toString());
+        this.gatewaySocket.setDataListener(function (data) {
+            _this.socketServer.sendTelemetry(data);
         });
         this.photoWatcher.setDownloadFinishedListener(function (path, fileName, photoTimestamp) {
             var base64Image = Base64Encoder_1.Base64Encoder.encode(path);
+            var image = new Image_1.Image(fileName, base64Image);
             //TODO update args
-            _this.socketServer.sendImage(0, fileName, base64Image, photoTimestamp);
+            _this.socketServer.sendImage(image);
         });
         this.logWatcher.setOnNewLineListener(function (line) {
-            _this.socketServer.sendLog(line, new Date());
+            var log = new Log_1.Log(line);
+            _this.socketServer.sendLog(log);
         });
         this.logWatcher.watch();
     };
