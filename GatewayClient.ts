@@ -1,5 +1,7 @@
+///<reference path="Telemetrie.ts"/>
 import {createConnection, Socket} from "net";
 import {LogHandler} from "./LogHandler";
+import {Telemetry} from "./Telemetrie";
 
 export class GatewayClient{
     private log : LogHandler = LogHandler.getInstance()
@@ -10,7 +12,7 @@ export class GatewayClient{
 
     connected:boolean = false;
 
-    dataListener:(data:Buffer)=>void;
+    dataListener:(data:Telemetry)=>void;
 
     constructor(host:string, port:number){
         this.host = host;
@@ -25,11 +27,11 @@ export class GatewayClient{
         this.clientSocket = createConnection(this.port, this.host, ()=>{
             this.connected = true;
 
-            this.setDataListener((data:Buffer) => {
+            this.clientSocket.addListener("data", (data:Buffer) =>{
                 this.log.log("new Data: " + data);
-                const jsonData = GatewayClient.bufferToJSON(data);
+                const telemetry = GatewayClient.bufferToJSON(data);
                 if(this.dataListener)
-                    this.dataListener(data)
+                    this.dataListener(telemetry)
             });
 
             this.clientSocket.addListener("close", (had_error:boolean)=>{
@@ -52,14 +54,14 @@ export class GatewayClient{
     }
 
     //Set internal data listener for event chain
-    setDataListener(listener:(data:Buffer)=>void){
+    setDataListener(listener:(data:Telemetry)=>void){
         this.dataListener = listener;
     }
 
     //TODO SAFE??? -> No typing
-    static bufferToJSON(buffer:Buffer){
+    static bufferToJSON(buffer:Buffer):Telemetry{
         const data = buffer.toString('utf8');
-        return JSON.parse(data)
+        return new Telemetry(JSON.parse(data))
     }
 
 }

@@ -24,17 +24,17 @@ export class Telemetry{
     sentence:string;
     json:JSON;
 
-    public Telemetry(data:JSON){
+    public constructor(data:JSON){
         this.class = data["class"];
-        this.index = data["class"];
-        this.channel = data["class"];
-        this.payload = data["class"];
-        this.time = data["class"];
-        this.lat = data["class"];
-        this.lon = data["class"];
-        this.alt = data["class"];
-        this.rate = data["class"];
-        this.sentence = data["class"];
+        this.index = data["index"];
+        this.channel = data["channel"];
+        this.payload = data["payload"];
+        this.time = data["time"];
+        this.lat = data["lat"];
+        this.lon = data["lon"];
+        this.alt = data["alt"];
+        this.rate = data["rate"];
+        this.sentence = data["sentence"];
         this.json = data
     }
 }

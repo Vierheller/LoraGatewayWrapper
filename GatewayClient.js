@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+///<reference path="Telemetrie.ts"/>
 var net_1 = require("net");
 var LogHandler_1 = require("./LogHandler");
+var Telemetrie_1 = require("./Telemetrie");
 var GatewayClient = /** @class */ (function () {
     function GatewayClient(host, port) {
         this.log = LogHandler_1.LogHandler.getInstance();
@@ -17,11 +19,11 @@ var GatewayClient = /** @class */ (function () {
         var _this = this;
         this.clientSocket = net_1.createConnection(this.port, this.host, function () {
             _this.connected = true;
-            _this.setDataListener(function (data) {
+            _this.clientSocket.addListener("data", function (data) {
                 _this.log.log("new Data: " + data);
-                var jsonData = GatewayClient.bufferToJSON(data);
+                var telemetry = GatewayClient.bufferToJSON(data);
                 if (_this.dataListener)
-                    _this.dataListener(data);
+                    _this.dataListener(telemetry);
             });
             _this.clientSocket.addListener("close", function (had_error) {
                 //Analyse
@@ -45,7 +47,7 @@ var GatewayClient = /** @class */ (function () {
     //TODO SAFE??? -> No typing
     GatewayClient.bufferToJSON = function (buffer) {
         var data = buffer.toString('utf8');
-        return JSON.parse(data);
+        return new Telemetrie_1.Telemetry(JSON.parse(data));
     };
     return GatewayClient;
 }());
