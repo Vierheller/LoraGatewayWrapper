@@ -11,6 +11,8 @@
         "rate":0.0,
         "sentence":"$$DHBW,144,00:00:00,0.00000,0.00000,00000,0,0,0,21.5,0.0,11.199,21.6,1013,0.0,20.4*035F"}
 */
+import {TelemetryInternal, TelemetryRaw} from "./model/Telemetry";
+
 export class Telemetry{
     //Incoming data
     data:TelemetryRaw;
@@ -37,31 +39,4 @@ export class Telemetry{
     }
 }
 
-export interface TelemetryRaw {
-    class: string;
-    index: number;
-    channel: number;
-    payload: string;
-    time: string;
-    lat: number;
-    lon: number;
-    alt: number;
-    rate: number;
-    sentence: string;
-}
 
-export interface TelemetryInternal{
-    class: string;
-    index: number;
-    channel: number;
-    payload: string;
-    time: string;
-    lat: number;
-    lon: number;
-    alt: number;
-    rate: number;
-    sentence: string;
-
-    timestamp:number;
-    type:string;
-}
