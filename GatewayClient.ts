@@ -1,7 +1,7 @@
-///<reference path="Telemetrie.ts"/>
+///<reference path="Telemetry.ts"/>
 import {createConnection, Socket} from "net";
 import {LogHandler} from "./LogHandler";
-import {Telemetry} from "./Telemetrie";
+import {Telemetry} from "./Telemetry";
 
 export class GatewayClient{
     private static log : LogHandler = LogHandler.getInstance();
@@ -58,13 +58,10 @@ export class GatewayClient{
         this.dataListener = listener;
     }
 
-    //TODO SAFE??? -> No typing
     static bufferToJSON(buffer:Buffer):Telemetry{
         const data = buffer.toString('utf8');
-        GatewayClient.log.log("Parsing string to JSON");
-        const json = JSON.parse(data);
-        GatewayClient.log.log("Parsed JSON: " + json);
-        return new Telemetry(json);
+        return Telemetry.parse(data);
+
     }
 
 }

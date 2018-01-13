@@ -15,23 +15,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 */
 var Telemetry = /** @class */ (function () {
     function Telemetry(data) {
-        this.class = data["class"];
-        this.index = data["index"];
-        this.channel = data["channel"];
-        this.payload = data["payload"];
-        this.time = data["time"];
-        this.lat = data["lat"];
-        this.lon = data["lon"];
-        this.alt = data["alt"];
-        this.rate = data["rate"];
-        this.sentence = data["sentence"];
-        this.json = data;
+        this.data = data;
         this.timestamp = new Date();
     }
+    Telemetry.parse = function (dataString) {
+        var json = JSON.parse(dataString);
+        return new Telemetry(json);
+    };
     Telemetry.prototype.getJSON = function () {
-        var json = this.json;
-        json["timestamp"] = this.timestamp;
-        return json;
+        var newJson = this.data;
+        newJson.timestamp = this.timestamp.getMilliseconds();
+        newJson.type = "telemetry";
+        return newJson;
     };
     return Telemetry;
 }());

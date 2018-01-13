@@ -1,6 +1,6 @@
 import * as http from "http" ;
 import server = require("socket.io");
-import {Telemetry} from "./Telemetrie";
+import {Telemetry} from "./Telemetry";
 import {Image} from "./Image";
 import {Log} from "./Log";
 

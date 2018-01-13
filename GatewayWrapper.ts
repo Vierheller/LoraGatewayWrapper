@@ -3,7 +3,7 @@ import {SocketServer} from "./SocketServer";
 import {PhotoDirectoryWatcher} from "./PhotoDirectoryWatcher";
 import {Base64Encoder} from "./Base64Encoder";
 import {ContinuousLogFileWatcher} from "./ContinuousLogFileWatcher";
-import {Telemetry} from "./Telemetrie";
+import {Telemetry} from "./Telemetry";
 import {Image} from "./Image";
 import {Log} from "./Log";
 import {ConfigHolder} from "./config/ConfigHolder";
