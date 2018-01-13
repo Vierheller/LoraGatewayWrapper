@@ -38,12 +38,12 @@ export class PhotoDirectoryWatcher{
     }
 
     private processFile(path:string){
-        PhotoDirectoryWatcher.getFile(path, function (err, data) {
-            const metadata = this.getMetadata();
+        PhotoDirectoryWatcher.getFile(path, (err, data)=> {
+            const metadata = this.getMetadata(path);
             if(this.isDownloadFinished(path)){
                 if(this.onFileDownloadFinishedListener)
                     //TODO update arguments
-                    this.onFileDownloadFinishedListener(path, path, new Date())
+                    this.onFileDownloadFinishedListener(path, path, new Date());
 
                 console.log(path, " finished download")
             }
@@ -55,7 +55,7 @@ export class PhotoDirectoryWatcher{
     }
 
     //TODO find proper lib maybe: https://github.com/rsms/node-imagemagick
-    private getMetadata(data:Buffer):Object{
+    private getMetadata(path:string):Object{
         return {
             data:123
         }
