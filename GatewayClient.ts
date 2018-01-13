@@ -28,8 +28,7 @@ export class GatewayClient{
             this.connected = true;
 
             this.clientSocket.addListener("data", (data:Buffer) =>{
-                GatewayClient.log.log("new Data: " + data);
-                const telemetry = GatewayClient.bufferToJSON(data);
+                const telemetry = GatewayClient.bufferToTelemetry(data);
                 if(this.dataListener)
                     this.dataListener(telemetry)
             });
@@ -58,10 +57,10 @@ export class GatewayClient{
         this.dataListener = listener;
     }
 
-    static bufferToJSON(buffer:Buffer):Telemetry{
+    static bufferToTelemetry(buffer:Buffer):Telemetry{
         const data = buffer.toString('utf8');
+        console.log(data);
         return Telemetry.parse(data);
-
     }
 
 }

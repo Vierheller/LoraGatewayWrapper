@@ -19,8 +19,7 @@ var GatewayClient = /** @class */ (function () {
         this.clientSocket = net_1.createConnection(this.port, this.host, function () {
             _this.connected = true;
             _this.clientSocket.addListener("data", function (data) {
-                GatewayClient.log.log("new Data: " + data);
-                var telemetry = GatewayClient.bufferToJSON(data);
+                var telemetry = GatewayClient.bufferToTelemetry(data);
                 if (_this.dataListener)
                     _this.dataListener(telemetry);
             });
@@ -43,8 +42,9 @@ var GatewayClient = /** @class */ (function () {
     GatewayClient.prototype.setDataListener = function (listener) {
         this.dataListener = listener;
     };
-    GatewayClient.bufferToJSON = function (buffer) {
+    GatewayClient.bufferToTelemetry = function (buffer) {
         var data = buffer.toString('utf8');
+        console.log(data);
         return Telemetry_1.Telemetry.parse(data);
     };
     GatewayClient.log = LogHandler_1.LogHandler.getInstance();
