@@ -62,7 +62,8 @@ export class GatewayClient{
     static bufferToJSON(buffer:Buffer):Telemetry{
         const data = buffer.toString('utf8');
         GatewayClient.log.log("Gateway client data: " + data);
-        return new Telemetry(JSON.parse(data))
+        const json = JSON.parse(data);
+        return new Telemetry(json);
     }
 
 }

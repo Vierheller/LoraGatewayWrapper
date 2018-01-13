@@ -47,7 +47,8 @@ var GatewayClient = /** @class */ (function () {
     GatewayClient.bufferToJSON = function (buffer) {
         var data = buffer.toString('utf8');
         GatewayClient.log.log("Gateway client data: " + data);
-        return new Telemetrie_1.Telemetry(JSON.parse(data));
+        var json = JSON.parse(data);
+        return new Telemetrie_1.Telemetry(json);
     };
     GatewayClient.log = LogHandler_1.LogHandler.getInstance();
     return GatewayClient;
