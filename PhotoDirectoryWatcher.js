@@ -8,13 +8,14 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
         this.init();
     }
     PhotoDirectoryWatcher.prototype.init = function () {
+        var _this = this;
         this.watcher = chokidar_1.watch(this.directoryPath, {
             persistent: true
         });
         this.watcher
             .on('add', function (path) {
             console.log('File', path, 'has been added');
-            this.processFile(path);
+            _this.processFile(path);
         })
             .on('change', function (path) {
             console.log('File', path, 'has been changed');

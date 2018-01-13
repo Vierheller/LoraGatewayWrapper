@@ -8,7 +8,7 @@ export class PhotoDirectoryWatcher{
     onFileDownloadFinishedListener:(path:string, fileName:string, photoTimestamp:Date)=>void
 
     constructor(path:string){
-        this.directoryPath = path
+        this.directoryPath = path;
         this.init()
     }
 
@@ -17,17 +17,17 @@ export class PhotoDirectoryWatcher{
             persistent: true
         });
         this.watcher
-            .on('add', function(path) {
+            .on('add', (path:string)=> {
                 console.log('File', path, 'has been added');
                 this.processFile(path);
             })
-            .on('change', function(path) {
+            .on('change', (path:string)=> {
                 console.log('File', path, 'has been changed');
             })
-            .on('unlink', function(path) {
+            .on('unlink', (path:string)=> {
                 console.log('File', path, 'has been removed');
             })
-            .on('error', function(error) {
+            .on('error', (error)=> {
                 console.error('Error happened', error);
             })
 
