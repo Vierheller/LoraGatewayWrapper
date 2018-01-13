@@ -61,8 +61,9 @@ export class GatewayClient{
     //TODO SAFE??? -> No typing
     static bufferToJSON(buffer:Buffer):Telemetry{
         const data = buffer.toString('utf8');
-        GatewayClient.log.log("Gateway client data: " + data);
+        GatewayClient.log.log("Parsing string to JSON");
         const json = JSON.parse(data);
+        GatewayClient.log.log("Parsed JSON: " + json);
         return new Telemetry(json);
     }
 

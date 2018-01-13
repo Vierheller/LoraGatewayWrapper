@@ -46,8 +46,9 @@ var GatewayClient = /** @class */ (function () {
     //TODO SAFE??? -> No typing
     GatewayClient.bufferToJSON = function (buffer) {
         var data = buffer.toString('utf8');
-        GatewayClient.log.log("Gateway client data: " + data);
+        GatewayClient.log.log("Parsing string to JSON");
         var json = JSON.parse(data);
+        GatewayClient.log.log("Parsed JSON: " + json);
         return new Telemetrie_1.Telemetry(json);
     };
     GatewayClient.log = LogHandler_1.LogHandler.getInstance();
