@@ -4,7 +4,7 @@ import {LogHandler} from "./LogHandler";
 import {Telemetry} from "./Telemetrie";
 
 export class GatewayClient{
-    private log : LogHandler = LogHandler.getInstance()
+    private static log : LogHandler = LogHandler.getInstance();
 
     clientSocket: Socket;
     port:number;
@@ -28,7 +28,7 @@ export class GatewayClient{
             this.connected = true;
 
             this.clientSocket.addListener("data", (data:Buffer) =>{
-                this.log.log("new Data: " + data);
+                GatewayClient.log.log("new Data: " + data);
                 const telemetry = GatewayClient.bufferToJSON(data);
                 if(this.dataListener)
                     this.dataListener(telemetry)
@@ -36,12 +36,12 @@ export class GatewayClient{
 
             this.clientSocket.addListener("close", (had_error:boolean)=>{
                 //Analyse
-                this.log.log("Connection was closed with " + had_error? "an" : "no" + "errors")
+                GatewayClient.log.log("Connection was closed with " + had_error? "an" : "no" + "errors")
             });
 
             this.clientSocket.addListener("end", ()=>{
                 //cleanup
-                this.log.log("Connection ended!")
+                GatewayClient.log.log("Connection ended!")
             });
 
             connectCallback(null);
@@ -61,6 +61,7 @@ export class GatewayClient{
     //TODO SAFE??? -> No typing
     static bufferToJSON(buffer:Buffer):Telemetry{
         const data = buffer.toString('utf8');
+        GatewayClient.log.log("Gateway client data: " + data);
         return new Telemetry(JSON.parse(data))
     }
 
