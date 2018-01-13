@@ -29,6 +29,7 @@ var SocketServer = /** @class */ (function () {
         });
     };
     SocketServer.prototype.sendOverSocket = function (json) {
+        console.log("Sending data to clients: " + json);
         this.socket.send(JSON.stringify(json));
     };
     SocketServer.prototype.sendImage = function (image) {

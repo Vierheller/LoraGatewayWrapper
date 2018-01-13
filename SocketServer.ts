@@ -41,7 +41,8 @@ export class SocketServer{
         });
     }
 
-    sendOverSocket(json:JSON){
+    sendOverSocket(json){
+        console.log("Sending data to clients: "+ json);
         this.socket.send(JSON.stringify(json))
     }
 

@@ -44,6 +44,7 @@ var GatewayClient = /** @class */ (function () {
     };
     GatewayClient.bufferToTelemetry = function (buffer) {
         var data = buffer.toString('utf8');
+        console.log("Received data: " + data);
         if (data.indexOf("\n") > -1) {
             console.log("New client data has multiple lines");
             var split = data.split("\n");

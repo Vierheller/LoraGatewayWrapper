@@ -59,6 +59,7 @@ export class GatewayClient{
 
     static bufferToTelemetry(buffer:Buffer):Telemetry{
         const data = buffer.toString('utf8');
+        console.log("Received data: "+ data);
         if(data.indexOf("\n")>-1){
             console.log("New client data has multiple lines");
 
