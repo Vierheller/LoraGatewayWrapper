@@ -59,8 +59,18 @@ export class GatewayClient{
 
     static bufferToTelemetry(buffer:Buffer):Telemetry{
         const data = buffer.toString('utf8');
-        console.log("New client data: START " + data + " END");
-        return Telemetry.parse(data);
+        if(data.indexOf("\n")>-1){
+            console.log("New client data has multiple lines");
+
+            const split = data.split("\n");
+            for(let i=0; i<split.length; i++){
+                console.log("New client data fraction ["+i+"]: START " + split[i] + " END");
+            }
+            return Telemetry.parse(split[0])
+        }else{
+            console.log("New client data: START " + data + " END");
+            return Telemetry.parse(data);
+        }
     }
 
 }
