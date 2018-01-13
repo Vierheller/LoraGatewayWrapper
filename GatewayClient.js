@@ -44,7 +44,7 @@ var GatewayClient = /** @class */ (function () {
     };
     GatewayClient.bufferToTelemetry = function (buffer) {
         var data = buffer.toString('utf8');
-        console.log(data);
+        console.log("New client data: START " + data + " END");
         return Telemetry_1.Telemetry.parse(data);
     };
     GatewayClient.log = LogHandler_1.LogHandler.getInstance();

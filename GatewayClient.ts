@@ -59,7 +59,7 @@ export class GatewayClient{
 
     static bufferToTelemetry(buffer:Buffer):Telemetry{
         const data = buffer.toString('utf8');
-        console.log(data);
+        console.log("New client data: START " + data + " END");
         return Telemetry.parse(data);
     }
 
