@@ -24,7 +24,7 @@ var SocketServer = /** @class */ (function () {
         socketServer.on('connect', function (socket) {
             console.log('Client connected on port %s.', _this.port);
             _this.socketClient = socket;
-            _this.socketClient.emit("event", "Irgend ne scheiße halt");
+            // this.socketClient.emit("event", "Irgend ne scheiße halt");
             _this.socketClient.on('disconnect', function () {
                 console.log('Client disconnected');
                 _this.socketClient = null;

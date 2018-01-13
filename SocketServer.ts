@@ -36,7 +36,7 @@ export class SocketServer{
         socketServer.on('connect', (socket: any) => {
             console.log('Client connected on port %s.', this.port);
             this.socketClient = socket;
-            this.socketClient.emit("event", "Irgend ne scheiße halt");
+            // this.socketClient.emit("event", "Irgend ne scheiße halt");
 
             this.socketClient.on('disconnect', () => {
                 console.log('Client disconnected');
