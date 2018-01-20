@@ -1,10 +1,10 @@
-///<reference path="Telemetrie.ts"/>
+///<reference path="Telemetry.ts"/>
 import {createConnection, Socket} from "net";
 import {LogHandler} from "./LogHandler";
-import {Telemetry} from "./Telemetrie";
+import {Telemetry} from "./Telemetry";
 
 export class GatewayClient{
-    private log : LogHandler = LogHandler.getInstance()
+    private static log : LogHandler = LogHandler.getInstance();
 
     clientSocket: Socket;
     port:number;
@@ -28,20 +28,19 @@ export class GatewayClient{
             this.connected = true;
 
             this.clientSocket.addListener("data", (data:Buffer) =>{
-                this.log.log("new Data: " + data);
-                const telemetry = GatewayClient.bufferToJSON(data);
+                const telemetry = GatewayClient.bufferToTelemetry(data);
                 if(this.dataListener)
                     this.dataListener(telemetry)
             });
 
             this.clientSocket.addListener("close", (had_error:boolean)=>{
                 //Analyse
-                this.log.log("Connection was closed with " + had_error? "an" : "no" + "errors")
+                GatewayClient.log.log("Connection was closed with " + had_error? "an" : "no" + "errors")
             });
 
             this.clientSocket.addListener("end", ()=>{
                 //cleanup
-                this.log.log("Connection ended!")
+                GatewayClient.log.log("Connection ended!")
             });
 
             connectCallback(null);
@@ -58,10 +57,21 @@ export class GatewayClient{
         this.dataListener = listener;
     }
 
-    //TODO SAFE??? -> No typing
-    static bufferToJSON(buffer:Buffer):Telemetry{
+    static bufferToTelemetry(buffer:Buffer):Telemetry{
         const data = buffer.toString('utf8');
-        return new Telemetry(JSON.parse(data))
+        console.log("Received data: "+ data);
+        if(data.indexOf("\n")>-1){
+            console.log("New client data has multiple lines");
+
+            const split = data.split("\n");
+            for(let i=0; i<split.length; i++){
+                console.log("New client data fraction ["+i+"]: START " + split[i] + " END");
+            }
+            return Telemetry.parse(split[0])
+        }else{
+            console.log("New client data: START " + data + " END");
+            return Telemetry.parse(data);
+        }
     }
 
 }

@@ -1,12 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-///<reference path="Telemetrie.ts"/>
+///<reference path="Telemetry.ts"/>
 var net_1 = require("net");
 var LogHandler_1 = require("./LogHandler");
-var Telemetrie_1 = require("./Telemetrie");
+var Telemetry_1 = require("./Telemetry");
 var GatewayClient = /** @class */ (function () {
     function GatewayClient(host, port) {
-        this.log = LogHandler_1.LogHandler.getInstance();
         this.connected = false;
         this.host = host;
         this.port = port;
@@ -20,18 +19,17 @@ var GatewayClient = /** @class */ (function () {
         this.clientSocket = net_1.createConnection(this.port, this.host, function () {
             _this.connected = true;
             _this.clientSocket.addListener("data", function (data) {
-                _this.log.log("new Data: " + data);
-                var telemetry = GatewayClient.bufferToJSON(data);
+                var telemetry = GatewayClient.bufferToTelemetry(data);
                 if (_this.dataListener)
                     _this.dataListener(telemetry);
             });
             _this.clientSocket.addListener("close", function (had_error) {
                 //Analyse
-                _this.log.log("Connection was closed with " + had_error ? "an" : "no" + "errors");
+                GatewayClient.log.log("Connection was closed with " + had_error ? "an" : "no" + "errors");
             });
             _this.clientSocket.addListener("end", function () {
                 //cleanup
-                _this.log.log("Connection ended!");
+                GatewayClient.log.log("Connection ended!");
             });
             connectCallback(null);
         });
@@ -44,11 +42,23 @@ var GatewayClient = /** @class */ (function () {
     GatewayClient.prototype.setDataListener = function (listener) {
         this.dataListener = listener;
     };
-    //TODO SAFE??? -> No typing
-    GatewayClient.bufferToJSON = function (buffer) {
+    GatewayClient.bufferToTelemetry = function (buffer) {
         var data = buffer.toString('utf8');
-        return new Telemetrie_1.Telemetry(JSON.parse(data));
+        console.log("Received data: " + data);
+        if (data.indexOf("\n") > -1) {
+            console.log("New client data has multiple lines");
+            var split = data.split("\n");
+            for (var i = 0; i < split.length; i++) {
+                console.log("New client data fraction [" + i + "]: START " + split[i] + " END");
+            }
+            return Telemetry_1.Telemetry.parse(split[0]);
+        }
+        else {
+            console.log("New client data: START " + data + " END");
+            return Telemetry_1.Telemetry.parse(data);
+        }
     };
+    GatewayClient.log = LogHandler_1.LogHandler.getInstance();
     return GatewayClient;
 }());
 exports.GatewayClient = GatewayClient;

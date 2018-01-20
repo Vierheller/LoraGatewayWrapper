@@ -8,13 +8,14 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
         this.init();
     }
     PhotoDirectoryWatcher.prototype.init = function () {
+        var _this = this;
         this.watcher = chokidar_1.watch(this.directoryPath, {
             persistent: true
         });
         this.watcher
             .on('add', function (path) {
             console.log('File', path, 'has been added');
-            this.processFile(path);
+            _this.processFile(path);
         })
             .on('change', function (path) {
             console.log('File', path, 'has been changed');
@@ -30,12 +31,13 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
         fs.readFile(path, callback);
     };
     PhotoDirectoryWatcher.prototype.processFile = function (path) {
+        var _this = this;
         PhotoDirectoryWatcher.getFile(path, function (err, data) {
-            var metadata = this.getMetadata();
-            if (this.isDownloadFinished(path)) {
-                if (this.onFileDownloadFinishedListener)
+            var metadata = _this.getMetadata(path);
+            if (_this.isDownloadFinished(path)) {
+                if (_this.onFileDownloadFinishedListener)
                     //TODO update arguments
-                    this.onFileDownloadFinishedListener(path, path, new Date());
+                    _this.onFileDownloadFinishedListener(path, path, new Date());
                 console.log(path, " finished download");
             }
         });
@@ -44,7 +46,7 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
         return true;
     };
     //TODO find proper lib maybe: https://github.com/rsms/node-imagemagick
-    PhotoDirectoryWatcher.prototype.getMetadata = function (data) {
+    PhotoDirectoryWatcher.prototype.getMetadata = function (path) {
         return {
             data: 123
         };

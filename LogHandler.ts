@@ -13,6 +13,10 @@ export class LogHandler{
     }
 
     public log(message?: any, ...optionalParams: any[]){
-        console.log(message, optionalParams)
+        if(optionalParams){
+            console.log(message, optionalParams)
+        }else{
+            console.log(message)
+        }
     }
 }

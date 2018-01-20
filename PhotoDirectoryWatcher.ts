@@ -8,7 +8,7 @@ export class PhotoDirectoryWatcher{
     onFileDownloadFinishedListener:(path:string, fileName:string, photoTimestamp:Date)=>void
 
     constructor(path:string){
-        this.directoryPath = path
+        this.directoryPath = path;
         this.init()
     }
 
@@ -17,17 +17,17 @@ export class PhotoDirectoryWatcher{
             persistent: true
         });
         this.watcher
-            .on('add', function(path) {
+            .on('add', (path:string)=> {
                 console.log('File', path, 'has been added');
                 this.processFile(path);
             })
-            .on('change', function(path) {
+            .on('change', (path:string)=> {
                 console.log('File', path, 'has been changed');
             })
-            .on('unlink', function(path) {
+            .on('unlink', (path:string)=> {
                 console.log('File', path, 'has been removed');
             })
-            .on('error', function(error) {
+            .on('error', (error)=> {
                 console.error('Error happened', error);
             })
 
@@ -38,12 +38,12 @@ export class PhotoDirectoryWatcher{
     }
 
     private processFile(path:string){
-        PhotoDirectoryWatcher.getFile(path, function (err, data) {
-            const metadata = this.getMetadata();
+        PhotoDirectoryWatcher.getFile(path, (err, data)=> {
+            const metadata = this.getMetadata(path);
             if(this.isDownloadFinished(path)){
                 if(this.onFileDownloadFinishedListener)
                     //TODO update arguments
-                    this.onFileDownloadFinishedListener(path, path, new Date())
+                    this.onFileDownloadFinishedListener(path, path, new Date());
 
                 console.log(path, " finished download")
             }
@@ -55,7 +55,7 @@ export class PhotoDirectoryWatcher{
     }
 
     //TODO find proper lib maybe: https://github.com/rsms/node-imagemagick
-    private getMetadata(data:Buffer):Object{
+    private getMetadata(path:string):Object{
         return {
             data:123
         }

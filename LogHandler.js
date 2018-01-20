@@ -20,7 +20,12 @@ var LogHandler = /** @class */ (function () {
         for (var _i = 1; _i < arguments.length; _i++) {
             optionalParams[_i - 1] = arguments[_i];
         }
-        console.log(message, optionalParams);
+        if (optionalParams) {
+            console.log(message, optionalParams);
+        }
+        else {
+            console.log(message);
+        }
     };
     return LogHandler;
 }());
