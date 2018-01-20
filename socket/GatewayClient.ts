@@ -1,6 +1,6 @@
-///<reference path="Telemetry.ts"/>
+///<reference path="./Telemetry.ts"/>
 import {createConnection, Socket} from "net";
-import {LogHandler} from "./LogHandler";
+import {LogHandler} from "../LogHandler";
 import {Telemetry} from "./Telemetry";
 
 export class GatewayClient{

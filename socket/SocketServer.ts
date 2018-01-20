@@ -1,8 +1,8 @@
 import * as http from "http" ;
 import server = require("socket.io");
 import {Telemetry} from "./Telemetry";
-import {Image} from "./Image";
-import {Log} from "./Log";
+import {Image} from "../photo/Image";
+import {Log} from "../log/Log";
 
 export class SocketServer{
     httpServer:http.Server;

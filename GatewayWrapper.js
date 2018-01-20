@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var GatewayClient_1 = require("./GatewayClient");
-var SocketServer_1 = require("./SocketServer");
-var PhotoDirectoryWatcher_1 = require("./PhotoDirectoryWatcher");
-var Base64Encoder_1 = require("./Base64Encoder");
-var ContinuousLogFileWatcher_1 = require("./ContinuousLogFileWatcher");
-var Image_1 = require("./Image");
-var Log_1 = require("./Log");
+var GatewayClient_1 = require("./socket/GatewayClient");
+var SocketServer_1 = require("./socket/SocketServer");
+var PhotoDirectoryWatcher_1 = require("./photo/PhotoDirectoryWatcher");
+var Base64Encoder_1 = require("./photo/Base64Encoder");
+var ContinuousLogFileWatcher_1 = require("./log/ContinuousLogFileWatcher");
+var Image_1 = require("./photo/Image");
+var Log_1 = require("./log/Log");
 var ConfigHolder_1 = require("./config/ConfigHolder");
 var GatewayWrapper = /** @class */ (function () {
     function GatewayWrapper() {

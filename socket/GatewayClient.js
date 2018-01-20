@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 ///<reference path="Telemetry.ts"/>
 var net_1 = require("net");
-var LogHandler_1 = require("./LogHandler");
-var Telemetry_1 = require("./Telemetry");
+var LogHandler_1 = require("../LogHandler");
+var Telemetry_1 = require("../Telemetry");
 var GatewayClient = /** @class */ (function () {
     function GatewayClient(host, port) {
         this.connected = false;
