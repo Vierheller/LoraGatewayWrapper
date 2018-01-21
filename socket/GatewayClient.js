@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-///<reference path="Telemetry.ts"/>
+///<reference path="./Telemetry.ts"/>
 var net_1 = require("net");
 var LogHandler_1 = require("../LogHandler");
-var Telemetry_1 = require("../Telemetry");
+var Telemetry_1 = require("./Telemetry");
 var GatewayClient = /** @class */ (function () {
     function GatewayClient(host, port) {
         this.connected = false;
@@ -38,23 +38,23 @@ var GatewayClient = /** @class */ (function () {
             connectCallback(err);
         });
     };
-    //Set internal data listener for event chain
+    //Set internal incomingData listener for event chain
     GatewayClient.prototype.setDataListener = function (listener) {
         this.dataListener = listener;
     };
     GatewayClient.bufferToTelemetry = function (buffer) {
         var data = buffer.toString('utf8');
-        console.log("Received data: " + data);
+        console.log("Received incomingData: " + data);
         if (data.indexOf("\n") > -1) {
-            console.log("New client data has multiple lines");
+            console.log("New client incomingData has multiple lines");
             var split = data.split("\n");
             for (var i = 0; i < split.length; i++) {
-                console.log("New client data fraction [" + i + "]: START " + split[i] + " END");
+                console.log("New client incomingData fraction [" + i + "]: START " + split[i] + " END");
             }
             return Telemetry_1.Telemetry.parse(split[0]);
         }
         else {
-            console.log("New client data: START " + data + " END");
+            console.log("New client incomingData: START " + data + " END");
             return Telemetry_1.Telemetry.parse(data);
         }
     };

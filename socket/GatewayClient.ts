@@ -52,24 +52,24 @@ export class GatewayClient{
         });
     }
 
-    //Set internal data listener for event chain
+    //Set internal incomingData listener for event chain
     setDataListener(listener:(data:Telemetry)=>void){
         this.dataListener = listener;
     }
 
     static bufferToTelemetry(buffer:Buffer):Telemetry{
         const data = buffer.toString('utf8');
-        console.log("Received data: "+ data);
+        console.log("Received incomingData: "+ data);
         if(data.indexOf("\n")>-1){
-            console.log("New client data has multiple lines");
+            console.log("New client incomingData has multiple lines");
 
             const split = data.split("\n");
             for(let i=0; i<split.length; i++){
-                console.log("New client data fraction ["+i+"]: START " + split[i] + " END");
+                console.log("New client incomingData fraction ["+i+"]: START " + split[i] + " END");
             }
             return Telemetry.parse(split[0])
         }else{
-            console.log("New client data: START " + data + " END");
+            console.log("New client incomingData: START " + data + " END");
             return Telemetry.parse(data);
         }
     }

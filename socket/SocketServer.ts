@@ -46,7 +46,7 @@ export class SocketServer{
     }
 
     sendOverSocket(json){
-        console.log("Sending data to clients: "+ json);
+        console.log("Sending incomingData to clients: "+ json);
         if(this.socketClient){
             this.socketClient.emit("event", JSON.stringify(json));
         }
