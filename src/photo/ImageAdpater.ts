@@ -1,10 +1,10 @@
 import {Image} from "../model/Image";
 
 export class ImageAdapter{
-    id:number;
-    fileName:string;
-    base64Image:string;
-    timestamp:Date;
+    private id:number;
+    private fileName:string;
+    private base64Image:string;
+    private timestamp:Date;
 
     //TODO from image
     static id_counter = 0;

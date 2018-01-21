@@ -1,3 +1,3 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=LogAdapter.js.map
+//# sourceMappingURL=Log.js.map

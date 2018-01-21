@@ -5,11 +5,11 @@ import {Log} from "../model/Log";
 import {Telemetry} from "./TelemetryAdapter";
 
 export class SocketServer{
-    httpServer:http.Server;
-    socketServer:SocketIO.Server;
+    private httpServer:http.Server;
+    private socketServer:SocketIO.Server;
 
-    socketClient:any;
-    port:number;
+    private socketClient:any;
+    private port:number;
 
     constructor(port:number){
         this.port = port;

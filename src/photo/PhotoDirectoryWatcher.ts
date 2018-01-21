@@ -62,7 +62,7 @@ export class PhotoDirectoryWatcher{
     }
 
 
-    setDownloadFinishedListener(listener:(path:string, fileName:string, photoTimestamp:Date)=>void){
+    public setDownloadFinishedListener(listener:(path:string, fileName:string, photoTimestamp:Date)=>void){
         this.onFileDownloadFinishedListener = listener
     }
 
