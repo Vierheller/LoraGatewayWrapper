@@ -57,3 +57,4 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
     return PhotoDirectoryWatcher;
 }());
 exports.PhotoDirectoryWatcher = PhotoDirectoryWatcher;
+//# sourceMappingURL=PhotoDirectoryWatcher.js.map

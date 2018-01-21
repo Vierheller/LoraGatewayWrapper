@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-///<reference path="./Telemetry.ts"/>
+///<reference path="./TelemetryAdapter.ts"/>
 var net_1 = require("net");
 var LogHandler_1 = require("../LogHandler");
-var Telemetry_1 = require("./Telemetry");
+var TelemetryAdapter_1 = require("./TelemetryAdapter");
 var GatewayClient = /** @class */ (function () {
     function GatewayClient(host, port) {
         this.connected = false;
@@ -51,14 +51,15 @@ var GatewayClient = /** @class */ (function () {
             for (var i = 0; i < split.length; i++) {
                 console.log("New client incomingData fraction [" + i + "]: START " + split[i] + " END");
             }
-            return Telemetry_1.Telemetry.parse(split[0]);
+            return TelemetryAdapter_1.Telemetry.parse(split[0]);
         }
         else {
             console.log("New client incomingData: START " + data + " END");
-            return Telemetry_1.Telemetry.parse(data);
+            return TelemetryAdapter_1.Telemetry.parse(data);
         }
     };
     GatewayClient.log = LogHandler_1.LogHandler.getInstance();
     return GatewayClient;
 }());
 exports.GatewayClient = GatewayClient;
+//# sourceMappingURL=GatewayClient.js.map

@@ -5,8 +5,8 @@ var SocketServer_1 = require("./socket/SocketServer");
 var PhotoDirectoryWatcher_1 = require("./photo/PhotoDirectoryWatcher");
 var Base64Encoder_1 = require("./photo/Base64Encoder");
 var ContinuousLogFileWatcher_1 = require("./log/ContinuousLogFileWatcher");
-var Image_1 = require("./photo/Image");
-var Log_1 = require("./log/Log");
+var ImageAdpater_1 = require("./photo/ImageAdpater");
+var LogAdapter_1 = require("./log/LogAdapter");
 var ConfigHolder_1 = require("./config/ConfigHolder");
 var GatewayWrapper = /** @class */ (function () {
     function GatewayWrapper() {
@@ -33,17 +33,17 @@ var GatewayWrapper = /** @class */ (function () {
             console.log("Connected to raw Socket");
         });
         this.gatewaySocket.setDataListener(function (data) {
-            _this.socketServer.sendTelemetry(data);
+            _this.socketServer.sendOverSocket(data);
         });
         this.photoWatcher.setDownloadFinishedListener(function (path, fileName, photoTimestamp) {
             var base64Image = Base64Encoder_1.Base64Encoder.encode(path);
-            var image = new Image_1.Image(fileName, base64Image);
+            var image = new ImageAdpater_1.ImageAdapter(fileName, base64Image);
             //TODO update args
-            _this.socketServer.sendImage(image);
+            _this.socketServer.sendOverSocket(image.getJSON());
         });
         this.logWatcher.setOnNewLineListener(function (line) {
-            var log = new Log_1.Log(line);
-            _this.socketServer.sendLog(log);
+            var log = new LogAdapter_1.LogAdapter(line);
+            _this.socketServer.sendOverSocket(log.getJSON());
         });
         this.logWatcher.watch();
     };
@@ -51,3 +51,4 @@ var GatewayWrapper = /** @class */ (function () {
     return GatewayWrapper;
 }());
 exports.GatewayWrapper = GatewayWrapper;
+//# sourceMappingURL=GatewayWrapper.js.map

@@ -10,3 +10,4 @@ var ConfigHolder = /** @class */ (function () {
     return ConfigHolder;
 }());
 exports.ConfigHolder = ConfigHolder;
+//# sourceMappingURL=ConfigHolder.js.map

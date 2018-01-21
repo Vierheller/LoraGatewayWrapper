@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var Telemetry = /** @class */ (function () {
     function Telemetry(data) {
-        this.incomingData = data;
         this.timestamp = new Date();
+        this.incomingData = data;
         this.outgoingData = this.convertIncomingToOutgoing();
     }
     Telemetry.prototype.convertIncomingToOutgoing = function () {
@@ -78,3 +78,4 @@ var Telemetry = /** @class */ (function () {
     return Telemetry;
 }());
 exports.Telemetry = Telemetry;
+//# sourceMappingURL=TelemetryAdapter.js.map

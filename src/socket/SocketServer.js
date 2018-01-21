@@ -37,15 +37,7 @@ var SocketServer = /** @class */ (function () {
             this.socketClient.emit("event", JSON.stringify(json));
         }
     };
-    SocketServer.prototype.sendImage = function (image) {
-        this.sendOverSocket(image.toJSON());
-    };
-    SocketServer.prototype.sendLog = function (log) {
-        this.sendOverSocket(log.toJSON());
-    };
-    SocketServer.prototype.sendTelemetry = function (data) {
-        this.sendOverSocket(data.getJSON());
-    };
     return SocketServer;
 }());
 exports.SocketServer = SocketServer;
+//# sourceMappingURL=SocketServer.js.map

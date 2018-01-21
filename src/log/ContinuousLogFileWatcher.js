@@ -26,3 +26,4 @@ var ContinuousLogFileWatcher = /** @class */ (function () {
     return ContinuousLogFileWatcher;
 }());
 exports.ContinuousLogFileWatcher = ContinuousLogFileWatcher;
+//# sourceMappingURL=ContinuousLogFileWatcher.js.map

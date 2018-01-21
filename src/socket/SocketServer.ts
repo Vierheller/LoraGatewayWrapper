@@ -1,8 +1,8 @@
 import * as http from "http" ;
 import server = require("socket.io");
-import {Telemetry} from "./Telemetry";
-import {Image} from "../photo/Image";
-import {Log} from "../log/Log";
+import {Image} from "../model/Image";
+import {Log} from "../model/Log";
+import {Telemetry} from "./TelemetryAdapter";
 
 export class SocketServer{
     httpServer:http.Server;
@@ -50,18 +50,5 @@ export class SocketServer{
         if(this.socketClient){
             this.socketClient.emit("event", JSON.stringify(json));
         }
-    }
-
-
-    sendImage(image:Image) {
-        this.sendOverSocket(image.toJSON());
-    }
-
-    sendLog(log:Log) {
-        this.sendOverSocket(log.toJSON())
-    }
-
-    sendTelemetry(data:Telemetry) {
-        this.sendOverSocket(data.getJSON())
     }
 }

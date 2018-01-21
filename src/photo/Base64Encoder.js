@@ -13,3 +13,4 @@ var Base64Encoder = /** @class */ (function () {
     return Base64Encoder;
 }());
 exports.Base64Encoder = Base64Encoder;
+//# sourceMappingURL=Base64Encoder.js.map

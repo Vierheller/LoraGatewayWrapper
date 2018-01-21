@@ -23,8 +23,8 @@ export class Telemetry{
 
 
     public constructor(data:TelemetryRaw){
-        this.incomingData = data;
         this.timestamp = new Date();
+        this.incomingData = data;
         this.outgoingData = this.convertIncomingToOutgoing();
     }
 

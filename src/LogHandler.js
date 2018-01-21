@@ -30,3 +30,4 @@ var LogHandler = /** @class */ (function () {
     return LogHandler;
 }());
 exports.LogHandler = LogHandler;
+//# sourceMappingURL=LogHandler.js.map
