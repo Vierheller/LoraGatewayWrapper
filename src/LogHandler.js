@@ -3,8 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var LogHandler = /** @class */ (function () {
     function LogHandler() {
     }
-    LogHandler.prototype.LogHandler = function () {
-    };
     LogHandler.getInstance = function () {
         return new LogHandler();
     };
@@ -26,6 +24,9 @@ var LogHandler = /** @class */ (function () {
         else {
             console.log(message);
         }
+    };
+    LogHandler.prototype.LogHandler = function () {
+        // Only to be singleton
     };
     return LogHandler;
 }());

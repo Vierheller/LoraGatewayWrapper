@@ -8,12 +8,13 @@ var ContinuousLogFileWatcher = /** @class */ (function () {
     ContinuousLogFileWatcher.prototype.watch = function () {
         var _this = this;
         this.tailWatcher = new Tail(this.path);
-        this.tailWatcher.on('line', function (line) {
-            if (_this.listener)
+        this.tailWatcher.on("line", function (line) {
+            if (_this.listener) {
                 _this.listener(line);
+            }
         });
-        this.tailWatcher.on('close', function () {
-            console.log('watching stopped');
+        this.tailWatcher.on("close", function () {
+            console.log("watching stopped");
         });
         this.tailWatcher.watch();
     };

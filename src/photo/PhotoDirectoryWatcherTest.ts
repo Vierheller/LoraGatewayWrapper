@@ -6,7 +6,7 @@ function test1(): void {
     watcher.setDownloadFinishedListener(((path, fileName, photoTimestamp) => {
         console.log("Download finished. path:" + path, " filename:" + fileName + " timestamp: " + photoTimestamp);
         const base64 = Base64Encoder.encode(path);
-        console.log("Base 64: " + base64);
+        // console.log("Base 64: " + base64);
     }));
 }
 

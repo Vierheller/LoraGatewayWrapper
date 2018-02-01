@@ -6,6 +6,7 @@ import ErrnoException = NodeJS.ErrnoException;
 import {Photo} from "./Photo";
 import {PhotoHelper} from "./PhotoHelper";
 import Timer = NodeJS.Timer;
+import {escape} from "querystring";
 
 export class PhotoDirectoryWatcher {
     private static getFile(path: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) {
@@ -67,8 +68,7 @@ export class PhotoDirectoryWatcher {
             // Try to get iNode stats for the picture
             fs.stat(path, (err: ErrnoException, stats: Stats) => {
                 let photo: Photo;
-                console.log(stats);
-                if (err) {
+                if (err !== null) {
                     // Can happen if the OS does not provide INode stats for Files
                     console.error(err);
                     photo = new Photo(path, filename, Number(counterstr), new Date());

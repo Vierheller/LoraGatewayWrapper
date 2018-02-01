@@ -8,7 +8,7 @@ var Base64Encoder = /** @class */ (function () {
         // read binary data
         var bitmap = fs.readFileSync(path);
         // convert binary data to base64 encoded string
-        return new Buffer(bitmap).toString('base64');
+        return new Buffer(bitmap).toString("base64");
     };
     return Base64Encoder;
 }());
