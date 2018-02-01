@@ -86,8 +86,8 @@ class PhotoHelper{
     private watcher:PhotoDirectoryWatcher;
 
     private timeWatcher : Timer;
-    private readonly watcherTimeMillis:number = 1000;
-    private readonly photoShouldBeFinishedTime:number = 60000
+    private watcherTimeMillis:number = 1000;
+    private photoShouldBeFinishedTime:number = 60000
 
     private currentCount = 0;
 
