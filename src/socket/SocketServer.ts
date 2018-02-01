@@ -24,7 +24,19 @@ export class SocketServer {
         this.listen();
     }
 
-    public sendOverSocket(json) {
+    public sendImage(image: Image) {
+        this.sendOverSocket(image);
+    }
+
+    public sendTelementry(telemetry: Telemetry) {
+        this.sendOverSocket(telemetry);
+    }
+
+    public sendLog(log: Log) {
+        this.sendOverSocket(log);
+    }
+
+    private sendOverSocket(json) {
         console.log("Sending incomingData to clients: " + json);
         if (this.socketClient) {
             this.socketClient.emit("event", JSON.stringify(json));

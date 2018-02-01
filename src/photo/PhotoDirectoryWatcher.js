@@ -14,7 +14,7 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
         fs.readFile(path, callback);
     };
     PhotoDirectoryWatcher.prototype.finishedDownload = function (photo) {
-        this.onFileDownloadFinishedListener(photo.path, photo.fileName, photo.appearDate);
+        this.onFileDownloadFinishedListener(photo.count, photo.path, photo.fileName, photo.appearDate);
     };
     PhotoDirectoryWatcher.prototype.setDownloadFinishedListener = function (listener) {
         this.onFileDownloadFinishedListener = listener;
@@ -44,7 +44,7 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
         var _this = this;
         var filename = this.getFileNameFromPath(path);
         // Valid filename?
-        var regex = new RegExp(/[a-zA-Z]+_[0-9]+/);
+        var regex = new RegExp(/[a-zA-Z]+_\d+/);
         if (regex.test(filename)) {
             // Cut off .JPG
             var counterstr_1 = filename.split(".")[0];

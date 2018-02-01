@@ -1,19 +1,17 @@
 import {Image} from "../model/Image";
 
 export class ImageAdapter {
-    // TODO from image
-    private static ID_COUNTER = 0;
 
     private id: number;
     private fileName: string;
     private base64Image: string;
     private timestamp: Date;
 
-    public constructor(fileName: string, base64Image: string) {
-        this.id = ImageAdapter.ID_COUNTER++;
+    public constructor(id: number, fileName: string, base64Image: string, timestamp: Date) {
+        this.id = id;
         this.fileName = fileName;
         this.base64Image = base64Image;
-        this.timestamp = new Date();
+        this.timestamp = timestamp;
     }
 
     public getJSON(): Image {
@@ -26,6 +24,7 @@ export class ImageAdapter {
         json.image_counter = this.id;
         json.filename = this.fileName;
         json.image_base64 = this.base64Image;
+        json.timestamp = this.timestamp.getTime();
         json.type = "image";
 
         return json;

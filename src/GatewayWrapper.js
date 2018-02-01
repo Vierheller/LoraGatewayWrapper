@@ -33,17 +33,16 @@ var GatewayWrapper = /** @class */ (function () {
             console.log("Connected to raw Socket");
         });
         this.gatewaySocket.setDataListener(function (data) {
-            _this.socketServer.sendOverSocket(data);
+            _this.socketServer.sendTelementry(data);
         });
-        this.photoWatcher.setDownloadFinishedListener(function (path, fileName, photoTimestamp) {
+        this.photoWatcher.setDownloadFinishedListener(function (count, path, fileName, photoTimestamp) {
             var base64Image = Base64Encoder_1.Base64Encoder.encode(path);
-            var image = new ImageAdpater_1.ImageAdapter(fileName, base64Image);
-            // TODO update args
-            _this.socketServer.sendOverSocket(image.getJSON());
+            var image = new ImageAdpater_1.ImageAdapter(count, fileName, base64Image, photoTimestamp);
+            _this.socketServer.sendImage(image.getJSON());
         });
         this.logWatcher.setOnNewLineListener(function (line) {
             var log = new LogAdapter_1.LogAdapter(line);
-            _this.socketServer.sendOverSocket(log.getJSON());
+            _this.socketServer.sendLog(log.getJSON());
         });
         this.logWatcher.watch();
     };

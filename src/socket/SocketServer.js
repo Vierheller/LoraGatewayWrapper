@@ -12,6 +12,15 @@ var SocketServer = /** @class */ (function () {
         });
         this.listen();
     }
+    SocketServer.prototype.sendImage = function (image) {
+        this.sendOverSocket(image);
+    };
+    SocketServer.prototype.sendTelementry = function (telemetry) {
+        this.sendOverSocket(telemetry);
+    };
+    SocketServer.prototype.sendLog = function (log) {
+        this.sendOverSocket(log);
+    };
     SocketServer.prototype.sendOverSocket = function (json) {
         console.log("Sending incomingData to clients: " + json);
         if (this.socketClient) {

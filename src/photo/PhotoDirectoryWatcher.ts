@@ -6,7 +6,6 @@ import ErrnoException = NodeJS.ErrnoException;
 import {Photo} from "./Photo";
 import {PhotoHelper} from "./PhotoHelper";
 import Timer = NodeJS.Timer;
-import {escape} from "querystring";
 
 export class PhotoDirectoryWatcher {
     private static getFile(path: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) {
@@ -18,7 +17,7 @@ export class PhotoDirectoryWatcher {
 
     private downloadHelper: PhotoHelper;
 
-    private onFileDownloadFinishedListener: (path: string, fileName: string, photoTimestamp: Date) => void;
+    private onFileDownloadFinishedListener: (count: number, path: string, fileName: string, photoTimestamp: Date) => void;
 
     constructor(path: string) {
         this.directoryPath = path;
@@ -26,10 +25,10 @@ export class PhotoDirectoryWatcher {
     }
 
     public finishedDownload(photo: Photo) {
-        this.onFileDownloadFinishedListener(photo.path, photo.fileName, photo.appearDate);
+        this.onFileDownloadFinishedListener(photo.count, photo.path, photo.fileName, photo.appearDate);
     }
 
-    public setDownloadFinishedListener(listener: (path: string, fileName: string, photoTimestamp: Date) => void) {
+    public setDownloadFinishedListener(listener: (count: number, path: string, fileName: string, photoTimestamp: Date) => void) {
         this.onFileDownloadFinishedListener = listener;
     }
 
@@ -60,7 +59,7 @@ export class PhotoDirectoryWatcher {
     private processFile(path: string) {
         const filename = this.getFileNameFromPath(path);
         // Valid filename?
-        const regex = new RegExp(/[a-zA-Z]+_[0-9]+/);
+        const regex = new RegExp(/[a-zA-Z]+_\d+/);
         if (regex.test(filename)) {
             // Cut off .JPG
             let counterstr = filename.split(".")[0];

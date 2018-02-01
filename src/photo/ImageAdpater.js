@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ImageAdapter = /** @class */ (function () {
-    function ImageAdapter(fileName, base64Image) {
-        this.id = ImageAdapter.ID_COUNTER++;
+    function ImageAdapter(id, fileName, base64Image, timestamp) {
+        this.id = id;
         this.fileName = fileName;
         this.base64Image = base64Image;
-        this.timestamp = new Date();
+        this.timestamp = timestamp;
     }
     ImageAdapter.prototype.getJSON = function () {
         return this.toJSON();
@@ -15,11 +15,10 @@ var ImageAdapter = /** @class */ (function () {
         json.image_counter = this.id;
         json.filename = this.fileName;
         json.image_base64 = this.base64Image;
+        json.timestamp = this.timestamp.getTime();
         json.type = "image";
         return json;
     };
-    // TODO from image
-    ImageAdapter.ID_COUNTER = 0;
     return ImageAdapter;
 }());
 exports.ImageAdapter = ImageAdapter;

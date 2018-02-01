@@ -43,19 +43,19 @@ export class GatewayWrapper {
         });
 
         this.gatewaySocket.setDataListener((data: Telemetry) => {
-            this.socketServer.sendOverSocket(data);
+            this.socketServer.sendTelementry(data);
         });
 
-        this.photoWatcher.setDownloadFinishedListener((path: string, fileName: string, photoTimestamp: Date) => {
+        this.photoWatcher.setDownloadFinishedListener(
+                (count: number, path: string, fileName: string, photoTimestamp: Date) => {
             const base64Image = Base64Encoder.encode(path);
-            const image = new ImageAdapter(fileName, base64Image);
-            // TODO update args
-            this.socketServer.sendOverSocket(image.getJSON());
+            const image = new ImageAdapter(count, fileName, base64Image, photoTimestamp);
+            this.socketServer.sendImage(image.getJSON());
         });
 
         this.logWatcher.setOnNewLineListener((line) => {
             const log = new LogAdapter(line);
-            this.socketServer.sendOverSocket(log.getJSON());
+            this.socketServer.sendLog(log.getJSON());
         });
         this.logWatcher.watch();
     }
