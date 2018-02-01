@@ -60,7 +60,8 @@ export class PhotoDirectoryWatcher {
     private processFile(path: string) {
         const filename = this.getFileNameFromPath(path);
         // Valid filename?
-        if (/[a-zA-Z]+_[0-9]+/.test(filename)) {
+        const regex = new RegExp(/[a-zA-Z]+_[0-9]+/);
+        if (regex.test(filename)) {
             // Cut off .JPG
             let counterstr = filename.split(".")[0];
             // Cut off DHBW_

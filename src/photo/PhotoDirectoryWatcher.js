@@ -44,7 +44,8 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
         var _this = this;
         var filename = this.getFileNameFromPath(path);
         // Valid filename?
-        if (/[a-zA-Z]+_[0-9]+/.test(filename)) {
+        var regex = new RegExp(/[a-zA-Z]+_[0-9]+/);
+        if (regex.test(filename)) {
             // Cut off .JPG
             var counterstr_1 = filename.split(".")[0];
             // Cut off DHBW_
