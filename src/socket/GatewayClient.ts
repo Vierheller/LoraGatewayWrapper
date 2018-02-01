@@ -1,20 +1,37 @@
-///<reference path="./TelemetryAdapter.ts"/>
+// <reference path="./TelemetryAdapter.ts"/>
 import {createConnection, Socket} from "net";
 import {LogHandler} from "../LogHandler";
 import {Telemetry} from "./TelemetryAdapter";
 
-export class GatewayClient{
-    private static log : LogHandler = LogHandler.getInstance();
+export class GatewayClient {
+    public static bufferToTelemetry(buffer: Buffer): Telemetry {
+        const data = buffer.toString("utf8");
+        console.log("Received incomingData: " + data);
+        if (data.indexOf("\n") > -1) {
+            console.log("New client incomingData has multiple lines");
 
-    clientSocket: Socket;
-    port:number;
-    host:string;
+            const split = data.split("\n");
+            for (let i = 0; i < split.length; i++) {
+                console.log("New client incomingData fraction [" + i + "]: START " + split[i] + " END");
+            }
+            return Telemetry.parse(split[0]);
+        } else {
+            console.log("New client incomingData: START " + data + " END");
+            return Telemetry.parse(data);
+        }
+    }
 
-    connected:boolean = false;
+    private static log: LogHandler = LogHandler.getInstance();
+    private clientSocket: Socket;
+    private port: number;
 
-    dataListener:(data:Telemetry)=>void;
+    private host: string;
 
-    constructor(host:string, port:number){
+    private connected: boolean = false;
+
+    private dataListener: (data: Telemetry) => void;
+
+    constructor(host: string, port: number) {
         this.host = host;
         this.port = port;
     }
@@ -23,55 +40,39 @@ export class GatewayClient{
      * Method to connect to a linux socket and bind listeners to it
      * @param {(err: Error) => void} connectCallback
      */
-    public connect(connectCallback:(err: Error)=>void){
-        this.clientSocket = createConnection(this.port, this.host, ()=>{
+    public connect(connectCallback: (err: Error) => void) {
+        this.clientSocket = createConnection(this.port, this.host, () => {
             this.connected = true;
 
-            this.clientSocket.addListener("data", (data:Buffer) =>{
+            this.clientSocket.addListener("data", (data: Buffer) => {
                 const telemetry = GatewayClient.bufferToTelemetry(data);
-                if(this.dataListener)
-                    this.dataListener(telemetry)
+                if (this.dataListener) {
+                    this.dataListener(telemetry);
+                }
             });
 
-            this.clientSocket.addListener("close", (had_error:boolean)=>{
-                //Analyse
-                GatewayClient.log.log("Connection was closed with " + had_error? "an" : "no" + "errors")
+            this.clientSocket.addListener("close", (hadError: boolean) => {
+                // Analyse
+                GatewayClient.log.log("Connection was closed with " + hadError ? "an" : "no" + "errors");
             });
 
-            this.clientSocket.addListener("end", ()=>{
-                //cleanup
-                GatewayClient.log.log("Connection ended!")
+            this.clientSocket.addListener("end", () => {
+                // cleanup
+                GatewayClient.log.log("Connection ended!");
             });
 
             connectCallback(null);
         });
 
-        //Outside connect, since connect could throw an error
-        this.clientSocket.addListener("error", (err:Error) => {
+        // Outside connect, since connect could throw an error
+        this.clientSocket.addListener("error", (err: Error) => {
             connectCallback(err);
         });
     }
 
-    //Set internal incomingData listener for event chain
-    setDataListener(listener:(data:Telemetry)=>void){
+    // Set internal incomingData listener for event chain
+    public setDataListener(listener: (data: Telemetry) => void) {
         this.dataListener = listener;
-    }
-
-    static bufferToTelemetry(buffer:Buffer):Telemetry{
-        const data = buffer.toString('utf8');
-        console.log("Received incomingData: "+ data);
-        if(data.indexOf("\n")>-1){
-            console.log("New client incomingData has multiple lines");
-
-            const split = data.split("\n");
-            for(let i=0; i<split.length; i++){
-                console.log("New client incomingData fraction ["+i+"]: START " + split[i] + " END");
-            }
-            return Telemetry.parse(split[0])
-        }else{
-            console.log("New client incomingData: START " + data + " END");
-            return Telemetry.parse(data);
-        }
     }
 
 }

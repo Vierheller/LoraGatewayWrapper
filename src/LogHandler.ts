@@ -1,22 +1,22 @@
-export class LogHandler{
+export class LogHandler {
 
-    private LogHandler(){
-
+    public static getInstance() {
+        return new LogHandler();
     }
 
-    public static getInstance(){
-        return new LogHandler()
+    public error(message?: any, ...optionalParams: any[]) {
+        console.error(message, optionalParams);
     }
 
-    public error(message?: any, ...optionalParams: any[]){
-        console.error(message, optionalParams)
-    }
-
-    public log(message?: any, ...optionalParams: any[]){
-        if(optionalParams){
-            console.log(message, optionalParams)
-        }else{
-            console.log(message)
+    public log(message?: any, ...optionalParams: any[]) {
+        if (optionalParams) {
+            console.log(message, optionalParams);
+        } else {
+            console.log(message);
         }
+    }
+
+    private LogHandler() {
+        // Only to be singleton
     }
 }
