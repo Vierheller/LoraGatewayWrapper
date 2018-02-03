@@ -34,7 +34,7 @@ var GatewayWrapper = /** @class */ (function () {
             GatewayWrapper.Log.log("Connected to raw Socket");
         });
         this.gatewaySocket.setDataListener(function (data) {
-            _this.socketServer.sendTelementry(data);
+            _this.socketServer.sendTelementry(data.getOutgoingJSON());
         });
         this.photoWatcher.setDownloadFinishedListener(function (count, path, fileName, photoTimestamp) {
             var base64Image = Base64Encoder_1.Base64Encoder.encode(path);

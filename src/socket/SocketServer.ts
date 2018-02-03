@@ -5,6 +5,7 @@ import {Log} from "../model/Log";
 import {ImageAdapter} from "../photo/ImageAdpater";
 import {Logging} from "../util/Logging";
 import {Telemetry} from "./TelemetryAdapter";
+import {TelemetryInternal} from "../model/Telemetry";
 
 export class SocketServer {
     private static Log: Logging = Logging.getInstance(SocketServer.toString());
@@ -32,7 +33,7 @@ export class SocketServer {
         this.sendOverSocket(image);
     }
 
-    public sendTelementry(telemetry: Telemetry) {
+    public sendTelementry(telemetry: TelemetryInternal) {
         this.sendOverSocket(telemetry);
     }
 

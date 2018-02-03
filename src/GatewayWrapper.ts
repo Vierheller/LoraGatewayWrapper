@@ -45,7 +45,7 @@ export class GatewayWrapper {
         });
 
         this.gatewaySocket.setDataListener((data: Telemetry) => {
-            this.socketServer.sendTelementry(data);
+            this.socketServer.sendTelementry(data.getOutgoingJSON());
         });
 
         this.photoWatcher.setDownloadFinishedListener(
