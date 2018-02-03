@@ -9,4 +9,6 @@ export interface Config {
 
     photo_watcher_interval: number;
     max_photo_download_time: number;
+
+    logfile_name: string;
 }

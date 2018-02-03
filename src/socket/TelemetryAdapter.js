@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var Logging_1 = require("../util/Logging");
 var Telemetry = /** @class */ (function () {
     function Telemetry(data) {
         this.timestamp = new Date();
@@ -75,6 +76,7 @@ var Telemetry = /** @class */ (function () {
         json.type = "telemetry";
         return json;
     };
+    Telemetry.Log = Logging_1.Logging.getInstance(Telemetry.toString());
     return Telemetry;
 }());
 exports.Telemetry = Telemetry;

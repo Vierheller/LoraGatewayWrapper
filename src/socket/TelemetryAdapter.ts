@@ -12,12 +12,17 @@
         "sentence":"$$DHBW,144,00:00:00,0.00000,0.00000,00000,0,0,0,21.5,0.0,11.199,21.6,1013,0.0,20.4*035F"}
 */
 import {TelemetryInternal, TelemetryRaw, TelemetrySentence} from "../model/Telemetry";
+import {Logging} from "../util/Logging";
+import {SocketServer} from "./SocketServer";
 
 export class Telemetry {
     public static parse(dataString: string): Telemetry {
         const json: TelemetryRaw = JSON.parse(dataString);
         return new Telemetry(json);
     }
+
+    private static Log: Logging = Logging.getInstance(Telemetry.toString());
+
     /**
      *
      * $$DHBW(payload),91(package_counter),15:42:16(time),49.51846(lat),8.50398(lon),00132(alt),1(speed),0(direction),
@@ -31,7 +36,7 @@ export class Telemetry {
         const message = sentenceSplit[0];
         const checksum = sentenceSplit[1];
 
-        const messageSplit = message.split(",");
+        const messageSplit: string[] = message.split(",");
         const json = {} as TelemetrySentence;
 
         json.payload = messageSplit[0];

@@ -1,6 +1,9 @@
 import {Image} from "../model/Image";
+import {Logging} from "../util/Logging";
+import {Base64Encoder} from "./Base64Encoder";
 
 export class ImageAdapter {
+    private static Log: Logging = Logging.getInstance(ImageAdapter.toString());
 
     private id: number;
     private fileName: string;

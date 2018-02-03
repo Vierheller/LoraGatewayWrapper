@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var http = require("http");
 var server = require("socket.io");
+var Logging_1 = require("../util/Logging");
 var SocketServer = /** @class */ (function () {
     function SocketServer(port) {
         this.port = port;
@@ -46,6 +47,7 @@ var SocketServer = /** @class */ (function () {
             });
         });
     };
+    SocketServer.Log = Logging_1.Logging.getInstance(SocketServer.toString());
     return SocketServer;
 }());
 exports.SocketServer = SocketServer;

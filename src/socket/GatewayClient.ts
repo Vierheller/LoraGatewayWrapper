@@ -1,6 +1,7 @@
 // <reference path="./TelemetryAdapter.ts"/>
 import {createConnection, Socket} from "net";
-import {LogHandler} from "../LogHandler";
+import {PhotoHelper} from "../photo/PhotoHelper";
+import {Logging} from "../util/Logging";
 import {Telemetry} from "./TelemetryAdapter";
 
 export class GatewayClient {
@@ -21,7 +22,8 @@ export class GatewayClient {
         }
     }
 
-    private static log: LogHandler = LogHandler.getInstance();
+    private static Log: Logging = Logging.getInstance(GatewayClient.toString());
+
     private clientSocket: Socket;
     private port: number;
 
@@ -53,12 +55,12 @@ export class GatewayClient {
 
             this.clientSocket.addListener("close", (hadError: boolean) => {
                 // Analyse
-                GatewayClient.log.log("Connection was closed with " + hadError ? "an" : "no" + "errors");
+                GatewayClient.Log.log("Connection was closed with " + hadError ? "an" : "no" + "errors");
             });
 
             this.clientSocket.addListener("end", () => {
                 // cleanup
-                GatewayClient.log.log("Connection ended!");
+                GatewayClient.Log.log("Connection ended!");
             });
 
             connectCallback(null);

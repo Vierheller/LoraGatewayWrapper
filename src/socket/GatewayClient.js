@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // <reference path="./TelemetryAdapter.ts"/>
 var net_1 = require("net");
-var LogHandler_1 = require("../LogHandler");
+var Logging_1 = require("../util/Logging");
 var TelemetryAdapter_1 = require("./TelemetryAdapter");
 var GatewayClient = /** @class */ (function () {
     function GatewayClient(host, port) {
@@ -42,11 +42,11 @@ var GatewayClient = /** @class */ (function () {
             });
             _this.clientSocket.addListener("close", function (hadError) {
                 // Analyse
-                GatewayClient.log.log("Connection was closed with " + hadError ? "an" : "no" + "errors");
+                GatewayClient.Log.log("Connection was closed with " + hadError ? "an" : "no" + "errors");
             });
             _this.clientSocket.addListener("end", function () {
                 // cleanup
-                GatewayClient.log.log("Connection ended!");
+                GatewayClient.Log.log("Connection ended!");
             });
             connectCallback(null);
         });
@@ -59,7 +59,7 @@ var GatewayClient = /** @class */ (function () {
     GatewayClient.prototype.setDataListener = function (listener) {
         this.dataListener = listener;
     };
-    GatewayClient.log = LogHandler_1.LogHandler.getInstance();
+    GatewayClient.Log = Logging_1.Logging.getInstance(GatewayClient.toString());
     return GatewayClient;
 }());
 exports.GatewayClient = GatewayClient;

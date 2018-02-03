@@ -8,6 +8,7 @@ import {PhotoDirectoryWatcher} from "./photo/PhotoDirectoryWatcher";
 import {GatewayClient} from "./socket/GatewayClient";
 import {SocketServer} from "./socket/SocketServer";
 import {Telemetry} from "./socket/TelemetryAdapter";
+import {Logging} from "./util/Logging";
 
 export class GatewayWrapper {
     public static main() {
@@ -16,6 +17,7 @@ export class GatewayWrapper {
         myWrapper.run();
     }
 
+    private static Log: Logging = Logging.getInstance(GatewayWrapper.toString());
     private static config: Config = ConfigHolder.config;
 
     public gatewaySocket: GatewayClient;
@@ -36,10 +38,10 @@ export class GatewayWrapper {
     private run() {
         this.gatewaySocket.connect((err) => {
             if (err) {
-                console.error(err);
+                GatewayWrapper.Log.error(err);
                 return;
             }
-            console.log("Connected to raw Socket");
+            GatewayWrapper.Log.log("Connected to raw Socket");
         });
 
         this.gatewaySocket.setDataListener((data: Telemetry) => {

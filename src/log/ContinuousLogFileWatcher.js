@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var Tail = require("nodejs-tail");
+var Logging_1 = require("../util/Logging");
 var ContinuousLogFileWatcher = /** @class */ (function () {
     function ContinuousLogFileWatcher(file) {
         this.path = file;
@@ -14,7 +15,7 @@ var ContinuousLogFileWatcher = /** @class */ (function () {
             }
         });
         this.tailWatcher.on("close", function () {
-            console.log("watching stopped");
+            ContinuousLogFileWatcher.Log.log("watching stopped");
         });
         this.tailWatcher.watch();
     };
@@ -24,6 +25,7 @@ var ContinuousLogFileWatcher = /** @class */ (function () {
     ContinuousLogFileWatcher.prototype.setOnNewLineListener = function (listener) {
         this.listener = listener;
     };
+    ContinuousLogFileWatcher.Log = Logging_1.Logging.getInstance(ContinuousLogFileWatcher.toString());
     return ContinuousLogFileWatcher;
 }());
 exports.ContinuousLogFileWatcher = ContinuousLogFileWatcher;

@@ -1,6 +1,11 @@
 import * as Tail from "nodejs-tail";
+import {ConfigHolder} from "../config/ConfigHolder";
+import {GatewayWrapper} from "../GatewayWrapper";
+import {Logging} from "../util/Logging";
 
 export class ContinuousLogFileWatcher {
+    private static Log: Logging = Logging.getInstance(ContinuousLogFileWatcher.toString());
+
     private path: string;
 
     private tailWatcher;
@@ -20,7 +25,7 @@ export class ContinuousLogFileWatcher {
         });
 
         this.tailWatcher.on("close", () => {
-            console.log("watching stopped");
+            ContinuousLogFileWatcher.Log.log("watching stopped");
         });
 
         this.tailWatcher.watch();

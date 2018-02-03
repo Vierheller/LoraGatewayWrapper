@@ -8,5 +8,7 @@
   "log_file_path":"/home/pi/lora-gateway/packets.txt",
 
   "photo_watcher_interval": 30000,
-  "max_photo_download_time": 120000
+  "max_photo_download_time": 120000,
+
+  "logfile_name": "gateway_wrapper.log"
 }

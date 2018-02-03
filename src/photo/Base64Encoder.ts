@@ -1,4 +1,6 @@
 import * as fs from "fs";
+import {ContinuousLogFileWatcher} from "../log/ContinuousLogFileWatcher";
+import {Logging} from "../util/Logging";
 
 export class Base64Encoder {
     public static encode(path: string) {
@@ -7,4 +9,6 @@ export class Base64Encoder {
         // convert binary data to base64 encoded string
         return new Buffer(bitmap).toString("base64");
     }
+
+    private static Log: Logging = Logging.getInstance(Base64Encoder.toString());
 }

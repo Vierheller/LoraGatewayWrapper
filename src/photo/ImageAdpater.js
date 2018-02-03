@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var Logging_1 = require("../util/Logging");
 var ImageAdapter = /** @class */ (function () {
     function ImageAdapter(id, fileName, base64Image, timestamp) {
         this.id = id;
@@ -19,6 +20,7 @@ var ImageAdapter = /** @class */ (function () {
         json.type = "image";
         return json;
     };
+    ImageAdapter.Log = Logging_1.Logging.getInstance(ImageAdapter.toString());
     return ImageAdapter;
 }());
 exports.ImageAdapter = ImageAdapter;

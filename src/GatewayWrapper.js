@@ -8,6 +8,7 @@ var ImageAdpater_1 = require("./photo/ImageAdpater");
 var PhotoDirectoryWatcher_1 = require("./photo/PhotoDirectoryWatcher");
 var GatewayClient_1 = require("./socket/GatewayClient");
 var SocketServer_1 = require("./socket/SocketServer");
+var Logging_1 = require("./util/Logging");
 var GatewayWrapper = /** @class */ (function () {
     function GatewayWrapper() {
     }
@@ -27,10 +28,10 @@ var GatewayWrapper = /** @class */ (function () {
         var _this = this;
         this.gatewaySocket.connect(function (err) {
             if (err) {
-                console.error(err);
+                GatewayWrapper.Log.error(err);
                 return;
             }
-            console.log("Connected to raw Socket");
+            GatewayWrapper.Log.log("Connected to raw Socket");
         });
         this.gatewaySocket.setDataListener(function (data) {
             _this.socketServer.sendTelementry(data);
@@ -46,6 +47,7 @@ var GatewayWrapper = /** @class */ (function () {
         });
         this.logWatcher.watch();
     };
+    GatewayWrapper.Log = Logging_1.Logging.getInstance(GatewayWrapper.toString());
     GatewayWrapper.config = ConfigHolder_1.ConfigHolder.config;
     return GatewayWrapper;
 }());

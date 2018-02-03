@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ConfigHolder_1 = require("../config/ConfigHolder");
+var Logging_1 = require("../util/Logging");
 var PhotoHelper = /** @class */ (function () {
     function PhotoHelper(watcher) {
         var _this = this;
@@ -32,6 +33,7 @@ var PhotoHelper = /** @class */ (function () {
             return value != null;
         }));
     };
+    PhotoHelper.Log = Logging_1.Logging.getInstance(PhotoHelper.toString());
     return PhotoHelper;
 }());
 exports.PhotoHelper = PhotoHelper;

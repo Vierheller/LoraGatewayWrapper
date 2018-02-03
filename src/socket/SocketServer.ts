@@ -2,9 +2,13 @@ import * as http from "http" ;
 import server = require("socket.io");
 import {Image} from "../model/Image";
 import {Log} from "../model/Log";
+import {ImageAdapter} from "../photo/ImageAdpater";
+import {Logging} from "../util/Logging";
 import {Telemetry} from "./TelemetryAdapter";
 
 export class SocketServer {
+    private static Log: Logging = Logging.getInstance(SocketServer.toString());
+
     private httpServer: http.Server;
     private socketServer: SocketIO.Server;
 

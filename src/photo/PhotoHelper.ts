@@ -1,9 +1,13 @@
 import {ConfigHolder} from "../config/ConfigHolder";
+import {Logging} from "../util/Logging";
+import {ImageAdapter} from "./ImageAdpater";
 import {Photo} from "./Photo";
 import {PhotoDirectoryWatcher} from "./PhotoDirectoryWatcher";
 import Timer = NodeJS.Timer;
 
 export class PhotoHelper {
+    private static Log: Logging = Logging.getInstance(PhotoHelper.toString());
+
     private photos = [];
     private watcher: PhotoDirectoryWatcher;
 
