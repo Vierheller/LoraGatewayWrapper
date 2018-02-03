@@ -5,5 +5,8 @@
   "gateway_server_port":3000,
 
   "photo_directory_path":"/home/pi/lora-gateway/ssdv/",
-  "log_file_path":"/home/pi/lora-gateway/packets.txt"
+  "log_file_path":"/home/pi/lora-gateway/packets.txt",
+
+  "photo_watcher_interval": 30000,
+  "max_photo_download_time": 120000
 }

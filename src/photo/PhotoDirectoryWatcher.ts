@@ -17,7 +17,8 @@ export class PhotoDirectoryWatcher {
 
     private downloadHelper: PhotoHelper;
 
-    private onFileDownloadFinishedListener: (count: number, path: string, fileName: string, photoTimestamp: Date) => void;
+    private onFileDownloadFinishedListener: (count: number, path: string,
+                                             fileName: string, photoTimestamp: Date) => void;
 
     constructor(path: string) {
         this.directoryPath = path;
@@ -28,7 +29,8 @@ export class PhotoDirectoryWatcher {
         this.onFileDownloadFinishedListener(photo.count, photo.path, photo.fileName, photo.appearDate);
     }
 
-    public setDownloadFinishedListener(listener: (count: number, path: string, fileName: string, photoTimestamp: Date) => void) {
+    public setDownloadFinishedListener(
+        listener: (count: number, path: string, fileName: string, photoTimestamp: Date) => void) {
         this.onFileDownloadFinishedListener = listener;
     }
 

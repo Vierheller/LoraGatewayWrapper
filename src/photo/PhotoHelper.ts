@@ -1,3 +1,4 @@
+import {ConfigHolder} from "../config/ConfigHolder";
 import {Photo} from "./Photo";
 import {PhotoDirectoryWatcher} from "./PhotoDirectoryWatcher";
 import Timer = NodeJS.Timer;
@@ -7,8 +8,8 @@ export class PhotoHelper {
     private watcher: PhotoDirectoryWatcher;
 
     private timeWatcher: Timer;
-    private watcherTimeMillis: number = 1000;
-    private photoShouldBeFinishedTime: number = 60000;
+    private watcherTimeInterval: number = ConfigHolder.config.photo_watcher_interval;
+    private photoShouldBeFinishedTime: number = ConfigHolder.config.max_photo_download_time;
 
     private currentCount = 0;
 
@@ -17,7 +18,7 @@ export class PhotoHelper {
 
         this.timeWatcher = setInterval(() => {
             this.finishPhotosIfExist();
-        }, this.watcherTimeMillis);
+        }, this.watcherTimeInterval);
     }
 
     public putPhoto(photo: Photo) {

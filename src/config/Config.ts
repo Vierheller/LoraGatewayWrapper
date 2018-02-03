@@ -6,4 +6,7 @@ export interface Config {
 
     photo_directory_path: string;
     log_file_path: string;
+
+    photo_watcher_interval: number;
+    max_photo_download_time: number;
 }
