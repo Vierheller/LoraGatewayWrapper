@@ -36,7 +36,7 @@ export class PhotoHelper {
             if (value.count < this.currentCount || value.appearDate.getTime()
                 < new Date().getTime() - this.photoShouldBeFinishedTime) {
                 this.watcher.finishedDownload(value);
-                console.log("Finished foto: " + value);
+                PhotoHelper.Log.log("Finished foto: " + value);
                 this.photos[index] = null;
             }
         }));

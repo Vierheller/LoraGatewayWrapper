@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var chokidar_1 = require("chokidar");
 var fs = require("fs");
 var Path = require("path");
+var Logging_1 = require("../util/Logging");
+var Base64Encoder_1 = require("./Base64Encoder");
 var Photo_1 = require("./Photo");
 var PhotoHelper_1 = require("./PhotoHelper");
 var PhotoDirectoryWatcher = /** @class */ (function () {
@@ -27,17 +29,17 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
         this.downloadHelper = new PhotoHelper_1.PhotoHelper(this);
         this.watcher
             .on("add", function (path) {
-            console.log("File", path, "has been added");
+            PhotoDirectoryWatcher.Log.log("File", path, "has been added");
             _this.processFile(path);
         })
             .on("change", function (path) {
-            console.log("File", path, "has been changed");
+            PhotoDirectoryWatcher.Log.log("File", path, "has been changed");
         })
             .on("unlink", function (path) {
-            console.log("File", path, "has been removed");
+            PhotoDirectoryWatcher.Log.log("File", path, "has been removed");
         })
             .on("error", function (error) {
-            console.error("Error happened", error);
+            PhotoDirectoryWatcher.Log.error("Error happened", error);
         });
     };
     PhotoDirectoryWatcher.prototype.processFile = function (path) {
@@ -55,19 +57,19 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
                 var photo;
                 if (err !== null) {
                     // Can happen if the OS does not provide INode stats for Files
-                    console.error(err);
+                    PhotoDirectoryWatcher.Log.error(err);
                     photo = new Photo_1.Photo(path, filename, Number(counterstr_1), new Date());
                 }
                 else {
                     // No error, we can get the photo stats
                     photo = new Photo_1.Photo(path, filename, Number(counterstr_1), stats.birthtime);
                 }
-                console.log(photo.toString());
+                PhotoDirectoryWatcher.Log.log(photo.toString());
                 _this.downloadHelper.putPhoto(photo);
             });
         }
         else {
-            console.error(filename + " does not match pattern");
+            PhotoDirectoryWatcher.Log.error(filename + " does not match pattern");
         }
     };
     /**
@@ -78,6 +80,7 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
     PhotoDirectoryWatcher.prototype.getFileNameFromPath = function (path) {
         return Path.basename(path);
     };
+    PhotoDirectoryWatcher.Log = Logging_1.Logging.getInstance(Base64Encoder_1.Base64Encoder.toString());
     return PhotoDirectoryWatcher;
 }());
 exports.PhotoDirectoryWatcher = PhotoDirectoryWatcher;

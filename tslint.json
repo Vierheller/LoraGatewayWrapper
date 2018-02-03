@@ -5,8 +5,14 @@
     ],
     "jsRules": {},
     "rules": {
-        "interface-name": [true, "never-prefix"],
-        "no-console": [false]
+        "interface-name": [true, "never-prefix"]
     },
-    "rulesDirectory": []
+    "rulesDirectory": [],
+    "linterOptions": {
+        "exclude": [
+            "bin",
+            "src/**/*.spec.js"
+        ]
+    }
+
 }

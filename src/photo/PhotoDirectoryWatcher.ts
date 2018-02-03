@@ -2,12 +2,15 @@ import {FSWatcher, watch} from "chokidar";
 import * as fs from "fs";
 import {Stats} from "fs";
 import * as Path from "path";
+import {Logging} from "../util/Logging";
+import {Base64Encoder} from "./Base64Encoder";
 import ErrnoException = NodeJS.ErrnoException;
 import {Photo} from "./Photo";
 import {PhotoHelper} from "./PhotoHelper";
-import Timer = NodeJS.Timer;
 
 export class PhotoDirectoryWatcher {
+    private static Log: Logging = Logging.getInstance(Base64Encoder.toString());
+
     private static getFile(path: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) {
         fs.readFile(path, callback);
     }
@@ -43,17 +46,17 @@ export class PhotoDirectoryWatcher {
 
         this.watcher
             .on("add", (path: string) => {
-                console.log("File", path, "has been added");
+                PhotoDirectoryWatcher.Log.log("File", path, "has been added");
                 this.processFile(path);
             })
             .on("change", (path: string) => {
-                console.log("File", path, "has been changed");
+                PhotoDirectoryWatcher.Log.log("File", path, "has been changed");
             })
             .on("unlink", (path: string) => {
-                console.log("File", path, "has been removed");
+                PhotoDirectoryWatcher.Log.log("File", path, "has been removed");
             })
             .on("error", (error) => {
-                console.error("Error happened", error);
+                PhotoDirectoryWatcher.Log.error("Error happened", error);
             });
 
     }
@@ -72,17 +75,17 @@ export class PhotoDirectoryWatcher {
                 let photo: Photo;
                 if (err !== null) {
                     // Can happen if the OS does not provide INode stats for Files
-                    console.error(err);
+                    PhotoDirectoryWatcher.Log.error(err);
                     photo = new Photo(path, filename, Number(counterstr), new Date());
                 } else {
                     // No error, we can get the photo stats
                     photo = new Photo(path, filename, Number(counterstr), stats.birthtime);
                 }
-                console.log(photo.toString());
+                PhotoDirectoryWatcher.Log.log(photo.toString());
                 this.downloadHelper.putPhoto(photo);
             });
         } else {
-            console.error(filename + " does not match pattern");
+            PhotoDirectoryWatcher.Log.error(filename + " does not match pattern");
         }
     }
 

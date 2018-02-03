@@ -12,17 +12,17 @@ var GatewayClient = /** @class */ (function () {
     }
     GatewayClient.bufferToTelemetry = function (buffer) {
         var data = buffer.toString("utf8");
-        console.log("Received incomingData: " + data);
+        GatewayClient.Log.log("Received incomingData: " + data);
         if (data.indexOf("\n") > -1) {
-            console.log("New client incomingData has multiple lines");
+            GatewayClient.Log.log("New client incomingData has multiple lines");
             var split = data.split("\n");
             for (var i = 0; i < split.length; i++) {
-                console.log("New client incomingData fraction [" + i + "]: START " + split[i] + " END");
+                GatewayClient.Log.log("New client incomingData fraction [" + i + "]: START " + split[i] + " END");
             }
             return TelemetryAdapter_1.Telemetry.parse(split[0]);
         }
         else {
-            console.log("New client incomingData: START " + data + " END");
+            GatewayClient.Log.log("New client incomingData: START " + data + " END");
             return TelemetryAdapter_1.Telemetry.parse(data);
         }
     };

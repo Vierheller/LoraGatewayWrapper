@@ -25,7 +25,7 @@ var PhotoHelper = /** @class */ (function () {
             if (value.count < _this.currentCount || value.appearDate.getTime()
                 < new Date().getTime() - _this.photoShouldBeFinishedTime) {
                 _this.watcher.finishedDownload(value);
-                console.log("Finished foto: " + value);
+                PhotoHelper.Log.log("Finished foto: " + value);
                 _this.photos[index] = null;
             }
         }));

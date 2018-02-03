@@ -41,7 +41,7 @@ export class SocketServer {
     }
 
     private sendOverSocket(json) {
-        console.log("Sending incomingData to clients: " + json);
+        SocketServer.Log.log("Sending incomingData to clients: " + json);
         if (this.socketClient) {
             this.socketClient.emit("event", JSON.stringify(json));
         }
@@ -49,7 +49,7 @@ export class SocketServer {
 
     private listen() {
         this.httpServer.listen(this.port, () => {
-            console.log("Running server on port %s", this.port);
+            SocketServer.Log.log("Running server on port %s", this.port);
         });
 
         this.onConnect(this.socketServer);
@@ -57,12 +57,12 @@ export class SocketServer {
 
     private onConnect(socketServer: SocketIO.Server) {
         socketServer.on("connect", (socket: any) => {
-            console.log("Client connected on port %s.", this.port);
+            SocketServer.Log.log("Client connected on port %s.", this.port);
             this.socketClient = socket;
             // this.socketClient.emit("event", "Irgend ne scheiße halt");
 
             this.socketClient.on("disconnect", () => {
-                console.log("Client disconnected");
+                SocketServer.Log.log("Client disconnected");
                 this.socketClient = null;
             });
         });

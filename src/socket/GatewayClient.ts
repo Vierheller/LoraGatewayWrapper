@@ -7,17 +7,17 @@ import {Telemetry} from "./TelemetryAdapter";
 export class GatewayClient {
     public static bufferToTelemetry(buffer: Buffer): Telemetry {
         const data = buffer.toString("utf8");
-        console.log("Received incomingData: " + data);
+        GatewayClient.Log.log("Received incomingData: " + data);
         if (data.indexOf("\n") > -1) {
-            console.log("New client incomingData has multiple lines");
+            GatewayClient.Log.log("New client incomingData has multiple lines");
 
             const split = data.split("\n");
             for (let i = 0; i < split.length; i++) {
-                console.log("New client incomingData fraction [" + i + "]: START " + split[i] + " END");
+                GatewayClient.Log.log("New client incomingData fraction [" + i + "]: START " + split[i] + " END");
             }
             return Telemetry.parse(split[0]);
         } else {
-            console.log("New client incomingData: START " + data + " END");
+            GatewayClient.Log.log("New client incomingData: START " + data + " END");
             return Telemetry.parse(data);
         }
     }
