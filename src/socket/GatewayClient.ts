@@ -45,6 +45,7 @@ export class GatewayClient {
     public connect(connectCallback: (err: Error) => void) {
         this.clientSocket = createConnection(this.port, this.host, () => {
             this.connected = true;
+            GatewayClient.Log.log("Connected to Gateway");
 
             this.clientSocket.addListener("data", (data: Buffer) => {
                 const telemetry = GatewayClient.bufferToTelemetry(data);

@@ -34,6 +34,7 @@ var GatewayClient = /** @class */ (function () {
         var _this = this;
         this.clientSocket = net_1.createConnection(this.port, this.host, function () {
             _this.connected = true;
+            GatewayClient.Log.log("Connected to Gateway");
             _this.clientSocket.addListener("data", function (data) {
                 var telemetry = GatewayClient.bufferToTelemetry(data);
                 if (_this.dataListener) {
