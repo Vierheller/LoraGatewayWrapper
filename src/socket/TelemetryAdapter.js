@@ -41,6 +41,11 @@ var Telemetry = /** @class */ (function () {
         json.pressure = Number(messageSplit[13]);
         json.humidity = Number(messageSplit[14]);
         json.temp_extern = Number(messageSplit[15]);
+        json.cda = Number(messageSplit[16]);
+        json.pred_lat = Number(messageSplit[17]);
+        json.pred_lng = Number(messageSplit[18]);
+        json.pred_landing_speed = Number(messageSplit[19]);
+        json.pred_time_to_landing = Number(messageSplit[20]);
         json.checksum = checksum;
         return json;
     };
@@ -72,6 +77,11 @@ var Telemetry = /** @class */ (function () {
         json.pressure = sentenceData.pressure;
         json.humidity = sentenceData.humidity;
         json.temp_extern = sentenceData.temp_extern;
+        json.cda = sentenceData.cda;
+        json.pred_lat = sentenceData.pred_lat;
+        json.pred_lng = sentenceData.pred_lng;
+        json.pred_landing_speed = sentenceData.pred_landing_speed;
+        json.pred_time_to_landing = sentenceData.pred_time_to_landing;
         json.timestamp = this.timestamp.getTime();
         json.type = "telemetry";
         return json;
