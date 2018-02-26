@@ -14,18 +14,24 @@ var SocketServer = /** @class */ (function () {
         this.listen();
     }
     SocketServer.prototype.sendImage = function (image) {
+        SocketServer.Log.log("Sending image dating " + new Date(image.timestamp));
         this.sendOverSocket(image);
     };
     SocketServer.prototype.sendTelementry = function (telemetry) {
+        SocketServer.Log.log("Sending telemetry dating " + new Date(telemetry.timestamp));
         this.sendOverSocket(telemetry);
     };
     SocketServer.prototype.sendLog = function (log) {
+        SocketServer.Log.log("Sending log data dating " + new Date(log.timestamp));
         this.sendOverSocket(log);
     };
     SocketServer.prototype.sendOverSocket = function (json) {
-        SocketServer.Log.log("Sending incomingData to clients: " + json);
+        // SocketServer.Log.log("Sending data to clients: " + json);
         if (this.socketClient) {
             this.socketClient.emit("event", JSON.stringify(json));
+        }
+        else {
+            SocketServer.Log.log("No client connected. Data not being send.");
         }
     };
     SocketServer.prototype.listen = function () {
