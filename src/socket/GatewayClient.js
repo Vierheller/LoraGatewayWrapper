@@ -6,6 +6,7 @@ var Logging_1 = require("../util/Logging");
 var TelemetryAdapter_1 = require("./TelemetryAdapter");
 var GatewayClient = /** @class */ (function () {
     function GatewayClient(host, port) {
+        this.lastPackageCount = 0;
         this.connected = false;
         this.host = host;
         this.port = port;
@@ -37,8 +38,9 @@ var GatewayClient = /** @class */ (function () {
             GatewayClient.Log.log("Connected to Gateway");
             _this.clientSocket.addListener("data", function (data) {
                 var telemetry = GatewayClient.bufferToTelemetry(data);
-                GatewayClient.Log.log("Got direct:" + telemetry.getOutgoingJSON().package_counter);
-                if (_this.dataListener) {
+                if (_this.dataListener && telemetry.getOutgoingJSON().package_counter > _this.lastPackageCount) {
+                    GatewayClient.Log.log("Got direct and forward:" + telemetry.getOutgoingJSON().package_counter);
+                    _this.lastPackageCount = telemetry.getOutgoingJSON().package_counter;
                     _this.dataListener(telemetry);
                 }
             });

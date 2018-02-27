@@ -23,6 +23,7 @@ export class GatewayClient {
     }
 
     private static Log: Logging = Logging.getInstance(GatewayClient.toString());
+    private lastPackageCount = 0;
 
     private clientSocket: Socket;
     private port: number;
@@ -49,8 +50,9 @@ export class GatewayClient {
 
             this.clientSocket.addListener("data", (data: Buffer) => {
                 const telemetry = GatewayClient.bufferToTelemetry(data);
-                GatewayClient.Log.log("Got direct:" + telemetry.getOutgoingJSON().package_counter);
-                if (this.dataListener) {
+                if (this.dataListener && telemetry.getOutgoingJSON().package_counter > this.lastPackageCount) {
+                    GatewayClient.Log.log("Got direct and forward:" + telemetry.getOutgoingJSON().package_counter);
+                    this.lastPackageCount = telemetry.getOutgoingJSON().package_counter;
                     this.dataListener(telemetry);
                 }
             });
