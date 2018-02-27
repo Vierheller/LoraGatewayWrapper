@@ -35,7 +35,7 @@ export class SocketServer {
     }
 
     public sendTelementry(telemetry: TelemetryInternal) {
-        SocketServer.Log.log("Sending telemetry(%03d) dating %s", telemetry.index, new Date(telemetry.timestamp));
+        SocketServer.Log.log("Sending telemetry(%3d) dating %s", telemetry.index, new Date(telemetry.timestamp));
         this.sendOverSocket(telemetry);
     }
 
