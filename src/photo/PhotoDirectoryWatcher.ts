@@ -46,14 +46,14 @@ export class PhotoDirectoryWatcher {
 
         this.watcher
             .on("add", (path: string) => {
-                PhotoDirectoryWatcher.Log.log("File", path, "has been added");
+                PhotoDirectoryWatcher.Log.log("File", path, " added");
                 this.processFile(path);
             })
             .on("change", (path: string) => {
-                PhotoDirectoryWatcher.Log.log("File", path, "has been changed");
+                // PhotoDirectoryWatcher.Log.log("File", path, "has been changed");
             })
             .on("unlink", (path: string) => {
-                PhotoDirectoryWatcher.Log.log("File", path, "has been removed");
+                // PhotoDirectoryWatcher.Log.log("File", path, "has been removed");
             })
             .on("error", (error) => {
                 PhotoDirectoryWatcher.Log.error("Error happened", error);

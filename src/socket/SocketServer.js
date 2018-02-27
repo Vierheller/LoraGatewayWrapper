@@ -14,16 +14,15 @@ var SocketServer = /** @class */ (function () {
         this.listen();
     }
     SocketServer.prototype.sendImage = function (image) {
-        SocketServer.Log.log("Sending image dating " + new Date(image.timestamp));
+        SocketServer.Log.log("Sending image " + image.image_counter);
         this.sendOverSocket(image);
     };
     SocketServer.prototype.sendTelementry = function (telemetry) {
-        SocketServer.Log.log("Sending telemetry " + telemetry.package_counter +
-            " dating " + new Date(telemetry.timestamp));
+        SocketServer.Log.log("Sending telemetry " + telemetry.package_counter);
         this.sendOverSocket(telemetry);
     };
     SocketServer.prototype.sendLog = function (log) {
-        SocketServer.Log.log("Sending log data dating " + new Date(log.timestamp));
+        SocketServer.Log.log("Sending log data " + log.timestamp);
         this.sendOverSocket(log);
     };
     SocketServer.prototype.sendOverSocket = function (json) {

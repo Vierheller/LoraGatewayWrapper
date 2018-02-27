@@ -51,7 +51,7 @@ export class GatewayClient {
             this.clientSocket.addListener("data", (data: Buffer) => {
                 const telemetry = GatewayClient.bufferToTelemetry(data);
                 if (this.dataListener && telemetry.getOutgoingJSON().package_counter > this.lastPackageCount) {
-                    GatewayClient.Log.log("Got direct and forward:" + telemetry.getOutgoingJSON().package_counter);
+                    // GatewayClient.Log.log("Got direct and forward:" + telemetry.getOutgoingJSON().package_counter);
                     this.lastPackageCount = telemetry.getOutgoingJSON().package_counter;
                     this.dataListener(telemetry);
                 }

@@ -28,14 +28,14 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
         this.downloadHelper = new PhotoHelper_1.PhotoHelper(this);
         this.watcher
             .on("add", function (path) {
-            PhotoDirectoryWatcher.Log.log("File", path, "has been added");
+            PhotoDirectoryWatcher.Log.log("File", path, " added");
             _this.processFile(path);
         })
             .on("change", function (path) {
-            PhotoDirectoryWatcher.Log.log("File", path, "has been changed");
+            // PhotoDirectoryWatcher.Log.log("File", path, "has been changed");
         })
             .on("unlink", function (path) {
-            PhotoDirectoryWatcher.Log.log("File", path, "has been removed");
+            // PhotoDirectoryWatcher.Log.log("File", path, "has been removed");
         })
             .on("error", function (error) {
             PhotoDirectoryWatcher.Log.error("Error happened", error);
