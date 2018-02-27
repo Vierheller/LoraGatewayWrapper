@@ -37,6 +37,7 @@ var GatewayClient = /** @class */ (function () {
             GatewayClient.Log.log("Connected to Gateway");
             _this.clientSocket.addListener("data", function (data) {
                 var telemetry = GatewayClient.bufferToTelemetry(data);
+                GatewayClient.Log.log("Got direct:" + telemetry.getOutgoingJSON().package_counter);
                 if (_this.dataListener) {
                     _this.dataListener(telemetry);
                 }

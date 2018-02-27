@@ -49,6 +49,7 @@ export class GatewayClient {
 
             this.clientSocket.addListener("data", (data: Buffer) => {
                 const telemetry = GatewayClient.bufferToTelemetry(data);
+                GatewayClient.Log.log("Got direct:" + telemetry.getOutgoingJSON().package_counter);
                 if (this.dataListener) {
                     this.dataListener(telemetry);
                 }
