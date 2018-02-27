@@ -9,7 +9,7 @@ import {Photo} from "./Photo";
 import {PhotoHelper} from "./PhotoHelper";
 
 export class PhotoDirectoryWatcher {
-    private static Log: Logging = Logging.getInstance(Base64Encoder.toString());
+    private static Log: Logging = Logging.getInstance("PhotoDirectoryWatcher");
 
     private static getFile(path: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void) {
         fs.readFile(path, callback);

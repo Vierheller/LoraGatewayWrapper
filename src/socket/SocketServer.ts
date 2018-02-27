@@ -8,7 +8,7 @@ import {Telemetry} from "./TelemetryAdapter";
 import {TelemetryInternal} from "../model/Telemetry";
 
 export class SocketServer {
-    private static Log: Logging = Logging.getInstance(SocketServer.toString());
+    private static Log: Logging = Logging.getInstance("SocketServer");
 
     private httpServer: http.Server;
     private socketServer: SocketIO.Server;

@@ -25,7 +25,7 @@ var ContinuousLogFileWatcher = /** @class */ (function () {
     ContinuousLogFileWatcher.prototype.setOnNewLineListener = function (listener) {
         this.listener = listener;
     };
-    ContinuousLogFileWatcher.Log = Logging_1.Logging.getInstance(ContinuousLogFileWatcher.toString());
+    ContinuousLogFileWatcher.Log = Logging_1.Logging.getInstance("ContinuousLogFileWatcher");
     return ContinuousLogFileWatcher;
 }());
 exports.ContinuousLogFileWatcher = ContinuousLogFileWatcher;

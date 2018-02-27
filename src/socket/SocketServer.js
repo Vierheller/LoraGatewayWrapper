@@ -54,7 +54,7 @@ var SocketServer = /** @class */ (function () {
             });
         });
     };
-    SocketServer.Log = Logging_1.Logging.getInstance(SocketServer.toString());
+    SocketServer.Log = Logging_1.Logging.getInstance("SocketServer");
     return SocketServer;
 }());
 exports.SocketServer = SocketServer;

@@ -33,7 +33,7 @@ var PhotoHelper = /** @class */ (function () {
             return value != null;
         }));
     };
-    PhotoHelper.Log = Logging_1.Logging.getInstance(PhotoHelper.toString());
+    PhotoHelper.Log = Logging_1.Logging.getInstance("PhotoHelper");
     return PhotoHelper;
 }());
 exports.PhotoHelper = PhotoHelper;

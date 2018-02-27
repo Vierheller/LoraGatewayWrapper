@@ -20,7 +20,7 @@ var ImageAdapter = /** @class */ (function () {
         json.type = "image";
         return json;
     };
-    ImageAdapter.Log = Logging_1.Logging.getInstance(ImageAdapter.toString());
+    ImageAdapter.Log = Logging_1.Logging.getInstance("ImageAdapter");
     return ImageAdapter;
 }());
 exports.ImageAdapter = ImageAdapter;

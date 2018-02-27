@@ -10,5 +10,5 @@ export class Base64Encoder {
         return new Buffer(bitmap).toString("base64");
     }
 
-    private static Log: Logging = Logging.getInstance(Base64Encoder.toString());
+    private static Log: Logging = Logging.getInstance("Base64Encoder");
 }

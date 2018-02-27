@@ -21,7 +21,7 @@ export class Telemetry {
         return new Telemetry(json);
     }
 
-    private static Log: Logging = Logging.getInstance(Telemetry.toString());
+    private static Log: Logging = Logging.getInstance("Telemetry");
 
     /**
      *

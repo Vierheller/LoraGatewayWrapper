@@ -11,7 +11,7 @@ var Base64Encoder = /** @class */ (function () {
         // convert binary data to base64 encoded string
         return new Buffer(bitmap).toString("base64");
     };
-    Base64Encoder.Log = Logging_1.Logging.getInstance(Base64Encoder.toString());
+    Base64Encoder.Log = Logging_1.Logging.getInstance("Base64Encoder");
     return Base64Encoder;
 }());
 exports.Base64Encoder = Base64Encoder;

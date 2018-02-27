@@ -4,7 +4,6 @@ var chokidar_1 = require("chokidar");
 var fs = require("fs");
 var Path = require("path");
 var Logging_1 = require("../util/Logging");
-var Base64Encoder_1 = require("./Base64Encoder");
 var Photo_1 = require("./Photo");
 var PhotoHelper_1 = require("./PhotoHelper");
 var PhotoDirectoryWatcher = /** @class */ (function () {
@@ -80,7 +79,7 @@ var PhotoDirectoryWatcher = /** @class */ (function () {
     PhotoDirectoryWatcher.prototype.getFileNameFromPath = function (path) {
         return Path.basename(path);
     };
-    PhotoDirectoryWatcher.Log = Logging_1.Logging.getInstance(Base64Encoder_1.Base64Encoder.toString());
+    PhotoDirectoryWatcher.Log = Logging_1.Logging.getInstance("PhotoDirectoryWatcher");
     return PhotoDirectoryWatcher;
 }());
 exports.PhotoDirectoryWatcher = PhotoDirectoryWatcher;

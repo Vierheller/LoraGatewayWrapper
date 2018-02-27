@@ -6,7 +6,7 @@ import {PhotoDirectoryWatcher} from "./PhotoDirectoryWatcher";
 import Timer = NodeJS.Timer;
 
 export class PhotoHelper {
-    private static Log: Logging = Logging.getInstance(PhotoHelper.toString());
+    private static Log: Logging = Logging.getInstance("PhotoHelper");
 
     private photos = [];
     private watcher: PhotoDirectoryWatcher;

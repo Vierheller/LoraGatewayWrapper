@@ -22,7 +22,7 @@ export class GatewayClient {
         }
     }
 
-    private static Log: Logging = Logging.getInstance(GatewayClient.toString());
+    private static Log: Logging = Logging.getInstance("GatewayClient");
     private lastPackageCount = 0;
 
     private clientSocket: Socket;

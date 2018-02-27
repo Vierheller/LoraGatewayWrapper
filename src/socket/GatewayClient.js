@@ -63,7 +63,7 @@ var GatewayClient = /** @class */ (function () {
     GatewayClient.prototype.setDataListener = function (listener) {
         this.dataListener = listener;
     };
-    GatewayClient.Log = Logging_1.Logging.getInstance(GatewayClient.toString());
+    GatewayClient.Log = Logging_1.Logging.getInstance("GatewayClient");
     return GatewayClient;
 }());
 exports.GatewayClient = GatewayClient;

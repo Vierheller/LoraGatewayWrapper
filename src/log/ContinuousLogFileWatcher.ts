@@ -4,7 +4,7 @@ import {GatewayWrapper} from "../GatewayWrapper";
 import {Logging} from "../util/Logging";
 
 export class ContinuousLogFileWatcher {
-    private static Log: Logging = Logging.getInstance(ContinuousLogFileWatcher.toString());
+    private static Log: Logging = Logging.getInstance("ContinuousLogFileWatcher");
 
     private path: string;
 
