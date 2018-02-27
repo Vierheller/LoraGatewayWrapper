@@ -18,7 +18,7 @@ var SocketServer = /** @class */ (function () {
         this.sendOverSocket(image);
     };
     SocketServer.prototype.sendTelementry = function (telemetry) {
-        SocketServer.Log.log("Sending telemetry " + JSON.stringify(telemetry) + " dating " + new Date(telemetry.timestamp));
+        SocketServer.Log.log("Sending telemetry " + telemetry.package_counter + " dating " + new Date(telemetry.timestamp));
         this.sendOverSocket(telemetry);
     };
     SocketServer.prototype.sendLog = function (log) {
