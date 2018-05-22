@@ -13,7 +13,6 @@
 */
 import {TelemetryInternal, TelemetryRaw, TelemetrySentence} from "../model/Telemetry";
 import {Logging} from "../util/Logging";
-import {SocketServer} from "./SocketServer";
 
 export class Telemetry {
     public static parse(dataString: string): Telemetry {

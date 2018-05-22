@@ -2,9 +2,7 @@ import * as http from "http" ;
 import server = require("socket.io");
 import {Image} from "../model/Image";
 import {Log} from "../model/Log";
-import {ImageAdapter} from "../photo/ImageAdpater";
 import {Logging} from "../util/Logging";
-import {Telemetry} from "./TelemetryAdapter";
 import {TelemetryInternal} from "../model/Telemetry";
 
 export class SocketServer {

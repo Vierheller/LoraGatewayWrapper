@@ -3,7 +3,7 @@ import {ContinuousLogFileWatcher} from "../log/ContinuousLogFileWatcher";
 import {Logging} from "../util/Logging";
 
 export class Base64Encoder {
-    public static encode(path: string) {
+    public static encode(path: string): string{
         // read binary data
         const bitmap = fs.readFileSync(path);
         // convert binary data to base64 encoded string

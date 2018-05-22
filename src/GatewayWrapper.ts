@@ -4,7 +4,7 @@ import {ContinuousLogFileWatcher} from "./log/ContinuousLogFileWatcher";
 import {LogAdapter} from "./log/LogAdapter";
 import {Base64Encoder} from "./photo/Base64Encoder";
 import {ImageAdapter} from "./photo/ImageAdpater";
-import {PhotoDirectoryWatcher} from "./photo/PhotoDirectoryWatcher";
+import {ImageDirectoryWatcher} from "./photo/ImageDirectoryWatcher";
 import {GatewayClient} from "./socket/GatewayClient";
 import {SocketServer} from "./socket/SocketServer";
 import {Telemetry} from "./socket/TelemetryAdapter";
@@ -22,7 +22,7 @@ export class GatewayWrapper {
 
     public gatewaySocket: GatewayClient;
     public socketServer: SocketServer;
-    public photoWatcher: PhotoDirectoryWatcher;
+    public photoWatcher: ImageDirectoryWatcher;
 
     public logWatcher: ContinuousLogFileWatcher;
 
@@ -31,7 +31,7 @@ export class GatewayWrapper {
         this.gatewaySocket = new GatewayClient(GatewayWrapper.config.gateway_client_host,
             GatewayWrapper.config.gateway_client_port);
         this.socketServer = new SocketServer(GatewayWrapper.config.gateway_server_port);
-        this.photoWatcher = new PhotoDirectoryWatcher(GatewayWrapper.config.photo_directory_path);
+        this.photoWatcher = new ImageDirectoryWatcher(GatewayWrapper.config.photo_directory_path);
         this.logWatcher = new ContinuousLogFileWatcher(GatewayWrapper.config.log_file_path);
     }
 
@@ -49,9 +49,7 @@ export class GatewayWrapper {
         });
 
         this.photoWatcher.setDownloadFinishedListener(
-                (count: number, path: string, fileName: string, photoTimestamp: Date) => {
-            const base64Image = Base64Encoder.encode(path);
-            const image = new ImageAdapter(count, fileName, base64Image, photoTimestamp);
+                (image: ImageAdapter) => {
             this.socketServer.sendImage(image.getJSON());
         });
 

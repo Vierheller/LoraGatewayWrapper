@@ -5,31 +5,31 @@ var Logging_1 = require("../util/Logging");
 var PhotoHelper = /** @class */ (function () {
     function PhotoHelper(watcher) {
         var _this = this;
-        this.photos = [];
+        this.images = [];
         this.watcherTimeInterval = ConfigHolder_1.ConfigHolder.config.photo_watcher_interval;
-        this.photoShouldBeFinishedTime = ConfigHolder_1.ConfigHolder.config.max_photo_download_time;
+        this.imageShouldBeFinishedTime = ConfigHolder_1.ConfigHolder.config.max_photo_download_time;
         this.currentCount = 0;
         this.watcher = watcher;
         this.timeWatcher = setInterval(function () {
             _this.finishPhotosIfExist();
         }, this.watcherTimeInterval);
     }
-    PhotoHelper.prototype.putPhoto = function (photo) {
-        this.currentCount = photo.count;
+    PhotoHelper.prototype.putPhoto = function (image) {
+        this.currentCount = image.count;
         this.finishPhotosIfExist();
-        this.photos.push(photo);
+        this.images.push(image);
     };
     PhotoHelper.prototype.finishPhotosIfExist = function () {
         var _this = this;
-        this.photos.forEach((function (value, index) {
+        this.images.forEach((function (value, index) {
             if (value.count < _this.currentCount || value.appearDate.getTime()
-                < new Date().getTime() - _this.photoShouldBeFinishedTime) {
+                < new Date().getTime() - _this.imageShouldBeFinishedTime) {
                 _this.watcher.finishedDownload(value);
                 PhotoHelper.Log.log("Finished foto: " + value);
-                _this.photos[index] = null;
+                _this.images[index] = null;
             }
         }));
-        this.photos = this.photos.filter((function (value) {
+        this.images = this.images.filter((function (value) {
             return value != null;
         }));
     };

@@ -1,6 +1,6 @@
 // <reference path="./TelemetryAdapter.ts"/>
 import {createConnection, Socket} from "net";
-import {PhotoHelper} from "../photo/PhotoHelper";
+import {ImageHelper} from "../photo/ImageHelper";
 import {Logging} from "../util/Logging";
 import {Telemetry} from "./TelemetryAdapter";
 
